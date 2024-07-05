@@ -1,5 +1,8 @@
 /* @theme shin */
 @import 'default';
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
 
 :root {
     --font-color-main: #012F4B;
@@ -7,7 +10,7 @@
 }
 
 section {
-    font-family: "Noto Sans JP", sans-serif;
+    font-family: "Noto Sans", "Noto Sans JP";
     justify-content: start;
     background-color: #EBEEF9;
     color: var(--font-color-main);
@@ -36,6 +39,11 @@ pre {
     padding: 3px 6px;
     border: 1px solid var(--font-color-main);
     ;
+}
+
+p:has(+ marp-pre) {
+    margin-bottom: 0;
+    padding-bottom: 5px;
 }
 
 code {
@@ -70,7 +78,8 @@ ul {
     padding-top: 0;
 }
 
-p,li {
+p,
+li {
     color: var(--font-color-sub);
     margin-left: 30px;
     font-weight: 500;
@@ -104,7 +113,7 @@ blockquote::after {
     content: "“";
     font-family: Arial;
     font-size: 500%;
-    color: #9daebf;
+    color: #8697a7;
     display: block;
     position: absolute;
     left: 5px;
@@ -175,6 +184,14 @@ aaasection.outline::before {
     width: 95%;
     height: 100%;
     filter: brightness(1.6) contrast(0.95) opacity(0.4) blur(3px);
+}
+
+section.outline p {
+    margin-left: 0;
+}
+
+section.outline h1 {
+    font-size: 160%;
 }
 
 section.outline p,

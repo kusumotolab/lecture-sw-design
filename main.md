@@ -3,7 +3,7 @@ marp: true
 size: 4:3
 theme: shin
 paginate: true
-
+title: SW設計論 #11
 ---
 <!-- _class: title -->
 # ソフトウェア設計論 `#11`
@@ -12,7 +12,7 @@ paginate: true
 ---
 # 何の授業をしようか･･･
 ## SW設計の内容であること
-単なる前提，でもとんでもなく広い
+単なる前提, ただし広い
 
 ## 被らないこと
 SW設計論13回 (楠本) 要求･見積･RFP
@@ -20,7 +20,7 @@ SW開発論15回 (肥後) 要求･設計･実装･テスト
 
 ## 役立つ内容にしたい
 情報科学研究科の最大公約数を
-幸いSW設計周りは汎用的で役に立ちやすい
+幸いSW工学･設計周りは汎用的で役に立ちやすい
 
 ## 知らなさそうな話をしたい
 B3授業 (演習D･実験B) の経験から考える
@@ -28,19 +28,21 @@ B3授業 (演習D･実験B) の経験から考える
 ---
 <!-- _class: outline-->
 <div class="corner-triangle"><div class="corner-triangle-text">目次</div></div>
+ 
+# 開発者が知っておくべきトピック集<br><sub>－実装編－</sub>
 
-# 
-## 開発者が理解すべきトピック集（実装編）
-### 
-SWEBOK
-良い名前をつける
-動くの先にある良いプログラム
-そもそも良いプログラムとは？
-Don't call us, we'll call you
-goto不要論からの学び
-できないことを増やす
-
-<!--span class="disabled">bb<span-->
+・SWEBOK
+・良い名前をつける
+・動くの先にある良いプログラム
+・良いプログラムとは？
+・_Don't call us, we'll call you_
+・goto不要論からの学び
+・できないことを増やす
+・分割統治
+・DRY･KISS･YAGNI
+・コメントはない方が良い
+・状態を減らす
+<span class="disabled">・bb<span>
 
 
 ---
@@ -160,22 +162,23 @@ if (debug) {
 `get` よりも `compute` `calculate` `retrieve` `extract`
 
 ## 分離する (関数名の場合)
-名前をつけられない＝対象が曖昧かやりすぎか
+名前をつけられない＝やりすぎ
 
-## 他者のソースコードを読む [git/builtin/clone.c](https://github.com/git/git/blob/master/builtin/clone.c)
+## 他者のソースコードを読む <sub>[git/builtin/clone.c](https://github.com/git/git/blob/master/builtin/clone.c)</sub>
 ```c
 int cmd_clone(int argc, const char **argv, const char *prefix)
-  ...
   if (argc == 0)
     usage_msg_opt(_("You must specify a repository to clone."),
 	  builtin_clone_usage, builtin_clone_options);
 ```
+
 
 ```
 $ git clone
 fatal: You must specify a repository to clone.
 usage: git clone [<options>] [--] <repo> [<dir>]
 ```
+
 
 ---
 <!-- _class: outline-->
@@ -202,7 +205,7 @@ usage: git clone [<options>] [--] <repo> [<dir>]
 ## Lv1. アルゴリズムとデータ構造
 
 ## Lv2. 構文･文法
-この段階で動くプログラムは作れる
+Lv1+Lv2で動くプログラムは作れる
 
 ## Lv3. パラダイム
 構造化･オブジェクト指向･関数型･宣言型
@@ -248,7 +251,7 @@ LibやFWを使う際に開発者の気持ちがわかる
 # <!--fit-->outline
 
 ---
-# Don't call us, we'll call you
+# _Don't call us, we'll call you_
 ## 制御の反転・ハリウッド原則
 制御の主となるmain()を自分で書かない
 フレームワークはこの考えに基づく
@@ -335,29 +338,27 @@ FWに対する深い理解が必要
 
 ---
 # gotoの例
-## ARMアセンブリ言語によるQSort
 ```arm
 qsort:
-    PUSH    {R0-R10,LR}        
-    MOV     R4,R0              
-    MOV     R5,R1              
-    CMP     R5,#1              
+    PUSH    {R0-R10,LR}
+    MOV     R4,R0
+    MOV     R5,R1
+    CMP     R5,#1
     BLE     qsort_done         # goto文
-    CMP     R5,#2              
+    CMP     R5,#2
     BEQ     qsort_check        # goto文
     ..       
 qsort_check:
-    LDR     R0,[R4]    
-    LDR     R1,[R4,#4] 
+    LDR     R0,[R4]
+    LDR     R1,[R4,#4]
     CMP     R0,R1
     BLE     qsort_done         # goto文
     ..
 qsort_done:
     POP     {R0-R10,PC}
 ```
-<!--
-https://vaelen.org/post/arm-assembly-sorting/
--->
+<subb>ARMアセンブリ言語によるQSort</subb>
+<!-- https://vaelen.org/post/arm-assembly-sorting/ -->
 
 ---
 # goto文の何が悪いのか？
@@ -419,15 +420,16 @@ https://vaelen.org/post/arm-assembly-sorting/
 
 ---
 # レポートより
-<br><br><br><br><br>
+<br><br><br><br>
 
 > グローバル変数はとても使いやすかったので
 > 今後積極的に使っていきたい
+
 ---
 # できないことを増やす
-## globalよりもlocal，publicよりもprivate
+## globalよりもlocal, publicよりもprivate
 変数･フィールドの可視性を下げる
-変数･フィールドが及ぼせる影響範囲を最小限に
+変数･フィールドが及ぼしうる影響範囲を最小限に
 
 ## 可変よりも不変
 変数の書き換えを禁止する
@@ -459,30 +461,126 @@ let mut y = 5; // 可変
 <subb>https://larrycuban.wordpress.com/2023/08/15/important-differences-between-complicated-and-complex-systems-rockets-to-the-moon-and-public-school-classrooms/</subb>
 
 ---
-# 分割統治しろ
+# 分割統治
 ## 大きな問題を制御可能な程度に小さく分解する
 大きな問題に体当たりしてはいけない
 小さく分解して一つずつ解決する
 
-実験スクリプトの例：
-　1. 指定ディレクトリ内のファイルを探索する
-　2. 発見したファイルに外部ツールXを適用する
-　3. ツールXの出力結果に処理YとZを行う
-　4. その結果を指定ディレクトリに書き出す
 
+
+## エンジニアリングの基本
+ComplexをComplicatedにする第一歩
+プログラミング以外にも適用できる
+
+
+---
+# 実験スクリプトの例
+## 題材
+```
+1. 指定ディレクトリ内のファイルを探索する
+2. 発見ファイルに外部ツールXを適用する (前処理)
+3. ツールXの出力結果に処理Yを適用する　(本処理)
+4. その結果を指定ディレクトリに書き出す
+```
+
+## いきなりこれを実装しない
 ```sh
-$ ./analyze.py in-dir/ out-dir/
+$ analyze.py in-dir/ out-dir/
+```
+
+## 分解して取り組む
+```sh
+$ apply-x.py in-file out-file
+$ apply-y.py in-file out-file  # 最優先で取り組むべき
 ```
 
 ```sh
-$ ./apply-x.py in-file out-file
-$ ./apply-y.py in-file out-file
-$ ./apply-z.py in-file out-file
+$ find in -type f | xargs -i apply-x.py {} out/{}
 ```
 
-```sh
-$ ./analyze.py x in-file out-file
+---
+# レポートより
+<br><br><br><br>
+
+> コメントを書くのを忘れていた
+> 今後は丁寧にコメントを書きたい
+
+---
+# コメントにも作法がある
+## コードから伝わることを書かない
+
+```java
+class User {
+  // constructor
+  public User() { ..
+
+  // find users by status
+  List<User> find(Status s) {
+
+    // initialize
+    String msg = "";
 ```
+
+役に立たない, ノイズにしかならない
+ファイルがでかくなる
+メンテも大変
+
+---
+# コードとコメントの不一致
+## ![](fig/comment-inconsistency.png)
+
+<subb>F. Wen et al., Int'l Conf. Program Comprehension (ICPC) 2019.</subb>
+
+
+---
+# コメントはどうあるべきか？
+## コメントがなくても伝わるように
+```diff
+- // ボタンを離した瞬間
+- if (buttonState == LOW && lastButtonState == HIGH) {
++ if (hasButtonPressed()) {
+```
+
+```diff
+void doSomething() {
+- // setup
+- ..
+- // calculate
+- ..
+- // show
+- ..
++ setup();
++ calculate();
++ show();
+}
+```
+
+---
+## コードから分からないことをコメントに書く
+TODOコメント
+```java
+// TODO: null時の処理を追加する
+// FIXME: 処理が重いので最適化すべき
+```
+
+何もしないことの明記
+```c
+while (offset < size && buf[offset++] != '\n') {
+  ; // do nothing
+}
+```
+
+複雑な命令の補足
+```java
+// email matcher (e.g., test@gmail.com)
+Pattern.compile("^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
+```
+
+一時策であることの明記
+```java
+// workaround for issue#30
+```
+
 
 ---
 # DRYの原則
