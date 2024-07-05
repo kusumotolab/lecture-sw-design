@@ -399,11 +399,11 @@ qsort_done:
 秩序が生まれる
 
 ---
+# 文章でも同じことが言える
 <div class="corner-triangle"><div class="corner-triangle-text">雑談</div></div>
 
-# 文章でも同じことが言える
-
 ## 具体的な語を選ぼう
+<brr>
 
 > SZZは～するものである
 
@@ -412,7 +412,6 @@ qsort_done:
 「もの」「こと」は汎用的で使いやすいが曖昧
 
 <br>
-<br>
 
 > ～における
 
@@ -420,7 +419,7 @@ qsort_done:
 
 ---
 # レポートより
-<br><br><br><br>
+<br><br><br><br><brr><brr><brr>
 
 > グローバル変数はとても使いやすかったので
 > 今後積極的に使っていきたい
@@ -451,6 +450,7 @@ let mut y = 5; // 可変
 ---
 # Complex vs Complicated
 <br>
+<brr>
 
 ## ![](https://www.gilkisongroup.com/wp-content/uploads/2019/01/Complicated-or-Complex-2-1200x565.png)
 <subb>https://www.gilkisongroup.com/investing-complicated-or-complex/</subb>

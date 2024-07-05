@@ -87,11 +87,10 @@ li {
     line-height: 1.2;
 }
 
-br {
+brr {
     display: block;
-    margin-bottom: 2px;
-    font-size: 2px;
-    line-height: 2px;
+    content: "";
+    margin-top: .5lh;
 }
 
 .disabled {
