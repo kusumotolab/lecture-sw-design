@@ -26,15 +26,20 @@ SW開発論15回 (肥後) 要求･設計･実装･テスト
 B3授業 (演習D･実験B) の経験から考える
 
 ---
-# 目次
-## SW開発者が知るべきトピック集（実装編）
+<!-- _class: outline-->
+<div class="corner-triangle"><div class="corner-triangle-text">目次</div></div>
+
+# 
+## 開発者が理解すべきトピック集（実装編）
+### 
 SWEBOK
 良い名前をつける
 動くの先にある良いプログラム
 そもそも良いプログラムとは？
 Don't call us, we'll call you
-gotoはなぜだめなのか？
+goto不要論からの学び
 できないことを増やす
+
 <!--span class="disabled">bb<span-->
 
 
@@ -129,8 +134,7 @@ Data Management BOK
 ```
 
 ```diff
-- int delay = 1000;   // delay WHAT?
-+ int delayMs = 1000; // 単位をつけるべき
+- int delay = 1000;   // delay WHAT?+ int delayMs = 1000; // 単位をつけるべき
 ```
 
 ```java
@@ -155,7 +159,7 @@ if (debug) {
 ## 色のある動詞を考える
 `get` よりも `compute` `calculate` `retrieve` `extract`
 
-## 分離する
+## 分離する (関数名の場合)
 名前をつけられない＝対象が曖昧かやりすぎか
 
 ## 他者のソースコードを読む [git/builtin/clone.c](https://github.com/git/git/blob/master/builtin/clone.c)
@@ -173,22 +177,25 @@ fatal: You must specify a repository to clone.
 usage: git clone [<options>] [--] <repo> [<dir>]
 ```
 
+---
+<!-- _class: outline-->
+# <!--fit-->outline
+
 
 ---
 # 動くプログラムは簡単
 ## プログラミング言語の基本命令
-四則演算 `sum+5` `i++` `total*rate`
 変数の宣言 `int i` `String s` `var v`
+四則演算 `sum+100` `i++` `total*rate`
 関数呼び出し `print("err")` `sort(arr)` `str.lower()`
 繰り返し `for(..)` `while(..)`
-条件分岐 `if(..)` `else`
+条件分岐 `if(..)` `switch(..)`
 
 ## これだけであらゆる処理が可能
 チューリング完全
 意図通りに動くプログラムは作れる
 
-
-<!--## 動くようになったら「良い」を考えるべき-->
+動くようになったら「良い」を考えるべき
 
 ---
 # プログラミングの習得レベル
@@ -200,7 +207,7 @@ usage: git clone [<options>] [--] <repo> [<dir>]
 ## Lv3. パラダイム
 構造化･オブジェクト指向･関数型･宣言型
 
-パラダイムの理解には各種概念の理解が必要
+パラダイムの理解には様々な概念の理解が必要
 　- OO：カプセル化･継承･移譲･ポリモルフィズム
 　- 関数型：参照透過性･冪等性･純粋性･副作用
 
@@ -209,18 +216,21 @@ Lv2は具体的だがLv3は抽象的で難しい
 ---
 # 動くの先にある良いプログラム
 ## Lv3パラダイムの理解が重要
-Lv2ので満足してはいけない
+Lv2で満足してはいけない
 Lv3を習得すると劇的にプログラミングが上達する
 
 LibやFWを使う際に開発者の気持ちがわかる
+暗黙の了解がいたるところにある
 
+理論を理解すれば実践が楽になるのと同じ
+理論と実践の両方に取り組むべき
 
-## Lv2の段階でも様々な良さがある
+## ただしLv2の段階でも様々な良さがある
 適切な名前･関数分割･浅いネスト等
 
 ---
-# そもそも良いとは？
-## 信頼性･効率性 (実行的側面の良さ)
+# 良いプログラムとは？
+## 信頼性･効率性 <sub>(実行的側面の良さ)</sub>
 目的を満たすか？バグがないか？
 リソースの無駄がないか？
 
@@ -228,19 +238,14 @@ LibやFWを使う際に開発者の気持ちがわかる
 読みやすいか？意図を汲み取れるか？
 
 ## 拡張性
-拡張はソースの書き換えか？追加か？
+拡張時の作業は書き換えか？追加か？
 
 ## テスタビリティ
 `main()` vs `main()+sub1()+sub2()+sub3()`
 
 ---
-# 
-## 大昔の機械語
-Dicstra
-
-Goto
-構造化しろ・モジュール化しろ
-
+<!-- _class: outline-->
+# <!--fit-->outline
 
 ---
 # Don't call us, we'll call you
@@ -312,17 +317,20 @@ FWに対する深い理解が必要
 
 
 ---
-# goto有害論
-##
-
-![](fig/goto-harmful.png)
-
-<sub>E.W. Dijkstra, Communications of the ACM, 1968</sub>
+<!-- _class: outline--><!-- -------------------------------------------------------------------------------- -->
+# <!--fit-->outline
 
 ---
-<div id="corner-triangle"><div class="corner-triangle-text">雑談</div></div>
+# goto有害論
 
+## ![width:900px](fig/goto-harmful.png)
+
+<subb>E.W. Dijkstra, Communications of the ACM, 1968</subb>
+
+---
 # X Considered Harmful
+<div class="corner-triangle"><div class="corner-triangle-text">雑談</div></div>
+
 ## ![](fig/considered-harmful.png)
 
 ---
@@ -355,7 +363,7 @@ https://vaelen.org/post/arm-assembly-sorting/
 # goto文の何が悪いのか？
 ## goto文は一見すごい命令
 高い汎用性：分岐･繰返･関数の必須要素
-使いやすい：`goto label` + `label` のみ
+使いやすい：`label:` `goto label` のみ
 
 プログラムの制御を自在に変更できる
 
@@ -363,39 +371,65 @@ https://vaelen.org/post/arm-assembly-sorting/
 使いやすいがゆえに乱用されがち
 
 無秩序の種
-いわゆるスパゲッティコードの根源🍝
+いわゆるスパゲッティコードの根源
 
 天才なら制御できるかもしれないが常人には無理
 天才は1年後自分コードを理解できるか？
 
 ---
 # gotoを許すフローチャート
-![width:700px](fig/runcible.png)
-<sub>RUNCIBLE -algebraic translation on a limited computer</sub>
+## ![width:700px](fig/runcible.png)
+<subb>RUNCIBLE -algebraic translation on a limited computer</subb>
 
 ---
-# goto否定論からの学び
+# goto不要論からの学び
 ## 汎用的･使いやすいは必ずしも正義ではない
 目的に特化している方が意図が明確
-`CMP` `JMP` ではなく `if()` や `while()`
 
-3つの要素でプログラムは実現可能
-　順序･分岐･反復
-　→ 構造化プログラミング
+`CMP` `JMP` ではなく `if()` や `while()`
+　→ 構造化プログラミングにつながる
+
+`var` ではなく `int` や `string`
+型なしよりも型あり
 
 ## できることを制限したほうが良い場合がある
+意図が明確になる
 物事が単純になる
 秩序が生まれる
 
 ---
-# レポートより
-<br><br><br><br><br>
-> グローバル変数はとても使いやすかったので
-> 今後積極的に使っていきたい
+<div class="corner-triangle"><div class="corner-triangle-text">雑談</div></div>
+
+# 文章でも同じことが言える
+
+## 具体的な語を選ぼう
+
+> SZZは～するものである
+
+> SZZは～する手法である
+
+「もの」「こと」は汎用的で使いやすいが曖昧
+
+<br>
+<br>
+
+> ～における
+
+> ～に関する
 
 ---
+# レポートより
+<br><br><br><br><br>
+
+> グローバル変数はとても使いやすかったので
+> 今後積極的に使っていきたい
+---
 # できないことを増やす
-## non-finalよりもfinal
+## globalよりもlocal，publicよりもprivate
+変数･フィールドの可視性を下げる
+変数･フィールドが及ぼせる影響範囲を最小限に
+
+## 可変よりも不変
 変数の書き換えを禁止する
 Rustはデフォルトで不変
 ```rust
@@ -403,42 +437,52 @@ let x = 5;     // 不変（デフォルト）
 let mut y = 5; // 可変
 ```
 
-## publicよりもprivate，globalよりもlocal
-変数･フィールドの可視性を下げる
-データと処理をくっつけるカプセル化の考え
-
 ## 自前main()よりも制御の反転
 自分でやらずに誰かに任す
 
 
+
 ---
-# 大きな問題を分解する
-## 大きな問題を制御可能な程度に小さく分解する
-大きな問題に体当たりしてはいけない
-
-例）
-　1. 指定ディレクトリ内のファイルを探索する
-　2. 発見したファイルに処理XとYを行う
-　3. その結果を外部ツールZに入力する
-　4. その結果を指定ディレクトリに書き出す
-
-./analyze.py in-dir out-dir
+<!-- _class: outline--><!-- -------------------------------------------------------------------------------- -->
+# <!--fit-->outline
 
 ---
 # Complex vs Complicated
-## 
+<br>
+
+## ![](https://www.gilkisongroup.com/wp-content/uploads/2019/01/Complicated-or-Complex-2-1200x565.png)
+<subb>https://www.gilkisongroup.com/investing-complicated-or-complex/</subb>
+
 ---
-# できないことを増やす
-## 何でもできるは危険である
+# Complex vs Complicated
+## ![](https://larrycuban.wordpress.com/wp-content/uploads/2023/08/team-of-teams_complicated-vs-complex.webp)
+<subb>https://larrycuban.wordpress.com/2023/08/15/important-differences-between-complicated-and-complex-systems-rockets-to-the-moon-and-public-school-classrooms/</subb>
 
+---
+# 分割統治しろ
+## 大きな問題を制御可能な程度に小さく分解する
+大きな問題に体当たりしてはいけない
+小さく分解して一つずつ解決する
 
-どこで誰が書き換えるか予測できない
-値を書き換えたらどこに波及するか予測できない
-public private
-final
-encapsulate
-static final
+実験スクリプトの例：
+　1. 指定ディレクトリ内のファイルを探索する
+　2. 発見したファイルに外部ツールXを適用する
+　3. ツールXの出力結果に処理YとZを行う
+　4. その結果を指定ディレクトリに書き出す
 
+```sh
+$ ./analyze.py in-dir/ out-dir/
+```
+
+```sh
+$ ./apply-x.py in-file out-file
+$ ./apply-y.py in-file out-file
+$ ./apply-z.py in-file out-file
+```
+
+```sh
+$ ./analyze.py x in-file out-file
+```
 
 ---
 # DRYの原則

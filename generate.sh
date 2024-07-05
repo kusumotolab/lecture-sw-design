@@ -1,1 +1,2 @@
-marp main.md -o main.html --html --theme style.css
+#!/bin/bash
+marp main.md --html --theme style.css

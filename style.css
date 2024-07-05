@@ -1,11 +1,16 @@
 /* @theme shin */
 @import 'default';
 
+:root {
+    --font-color-main: #012F4B;
+    --font-color-sub: #0f3b57;
+}
+
 section {
     font-family: "Noto Sans JP", sans-serif;
     justify-content: start;
     background-color: #EBEEF9;
-    color: #012F4B;
+    color: var(--font-color-main);
     padding: 30px 70px;
 }
 
@@ -17,14 +22,20 @@ section.title {
     padding-top: 400px;
 }
 
+sub {
+    bottom: 0;
+}
+
+blockquote,
 code,
 pre {
     font-family: consolas, "Noto Sans JP";
-    color: #012F4B;
+    color: var(--font-color-sub);
     background-color: white;
     font-weight: 500;
     padding: 3px 6px;
-    border: 1px solid #012F4B;
+    border: 1px solid var(--font-color-main);
+    ;
 }
 
 code {
@@ -41,14 +52,14 @@ h1 {
     padding: 0;
     font-size: 200%;
     font-weight: 900;
-    color: #012F4B;
+    color: var(--font-color-main);
     _padding-bottom: 30px;
 }
 
 h2 {
     margin: 0;
     padding: 10px 0 0 0;
-    color: #012F4B;
+    color: var(--font-color-main);
     font-weight: 900;
     padding-bottom: 5px;
 }
@@ -59,7 +70,8 @@ ul {
     padding-top: 0;
 }
 
-p {
+p,li {
+    color: var(--font-color-sub);
     margin-left: 30px;
     font-weight: 500;
     font-size: 120%;
@@ -77,27 +89,31 @@ br {
     color: hsl(203, 43%, 56%, 60%)
 }
 
+section::after {
+    color: #9badbe;
+}
+
 blockquote {
-    background-color: #e4e8f3;
+    background-color: #dadfec;
     position: relative;
     border: none;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-left: 40px;
 }
 
 blockquote::after {
     content: "“";
     font-family: Arial;
-    font-size: 400%;
+    font-size: 500%;
+    color: #9daebf;
     display: block;
     position: absolute;
     left: 5px;
-    top: -30px;
+    top: -55px;
     bottom: 0;
     margin: auto;
 }
 
-div#corner-triangle {
+div.corner-triangle {
     display: block;
     width: 0px;
     height: 0px;
@@ -110,7 +126,7 @@ div#corner-triangle {
     color: white;
 }
 
-div#corner-triangle .corner-triangle-text {
+div.corner-triangle .corner-triangle-text {
     position: relative;
     top: 40px;
     right: -60px;
@@ -124,15 +140,51 @@ div#corner-triangle .corner-triangle-text {
     transform: rotate(45deg);
 }
 
-div#corner-triangle .corner-triangle-text span.corner-triangle-firstline {
+div.corner-triangle .corner-triangle-text span.corner-triangle-firstline {
     margin-left: 29px;
 }
 
-div#corner-triangle .corner-triangle-text a {
+div.corner-triangle .corner-triangle-text a {
     color: white;
 }
 
 .bespoke-marp-osc {
     display: hidden;
 
+}
+
+section.outline {
+    background-color: var(--font-color-sub);
+}
+
+section.outline>.corner-triangle {
+    border-color: transparent rgb(201, 57, 64) transparent transparent;
+}
+
+aaasection.outline::before {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    display: block;
+    background-image: url("fig/guidepost.png");
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-position: bottom right;
+    width: 95%;
+    height: 100%;
+    filter: brightness(1.6) contrast(0.95) opacity(0.4) blur(3px);
+}
+
+section.outline p,
+section.outline h1,
+section.outline h2,
+section.outline h3 {
+    color: #eff3f5;
+}
+
+p:has(subb) {
+    font-size: 70%;
+    font-weight: 400;
 }
