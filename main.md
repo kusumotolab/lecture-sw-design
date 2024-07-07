@@ -6,7 +6,7 @@ paginate: true
 title: SW設計論 #11
 ---
 <!-- _class: title -->
-# ソフトウェア設計論 `#11`
+# ソフトウェア設計論 <div class="logo">#11</div>
 ## まつ本
 
 ---
@@ -27,22 +27,22 @@ B3授業 (演習D･実験B) の経験から考える
 
 ---
 <!-- _class: outline-->
-<div class="corner-triangle"><div class="corner-triangle-text">目次</div></div>
- 
 # 開発者が知っておくべきトピック集<br><sub>－実装編－</sub>
+<div class="corner-triangle"><div class="corner-triangle-text">目次</div></div>
 
-・SWEBOK
-・良い名前をつける
-・動くの先にある良いプログラム
-・良いプログラムとは？
-・_Don't call us, we'll call you_
-・goto不要論からの学び
-・できないことを増やす
-・分割統治
-・DRY･KISS･YAGNI
-・コメントはない方が良い
-・状態を減らす
-<span class="disabled">・bb<span>
+<span class="disabled">・SWEBOK</span>
+<span class="disabled">・良い名前をつける</span>
+<span class="disabled">・動くの先にある良いプログラム</span>
+<span class="disabled">・良いプログラムとは？</span>
+<span class="disabled">・_Don't call us, we'll call you_</span>
+<span class="enabledx">・goto不要論からの学び</span>
+<span class="disabled">・goto不要論からの学び</span>
+<span class="disabled">・できないことを増やす</span>
+<span class="disabled">・分割統治</span>
+<span class="disabled">・DRY･KISS･YAGNI</span>
+<span class="disabled">・コメントはない方が良い</span>
+<span class="disabled">・状態を減らす</span>
+<span class="disabled">・bb</span>
 
 
 ---
@@ -214,7 +214,7 @@ Lv1+Lv2で動くプログラムは作れる
 　- OO：カプセル化･継承･移譲･ポリモルフィズム
 　- 関数型：参照透過性･冪等性･純粋性･副作用
 
-Lv2は具体的だがLv3は抽象的で難しい
+Lv2は具体的で簡単, Lv3は抽象的で難しい
 
 ---
 # 動くの先にある良いプログラム

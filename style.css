@@ -5,15 +5,17 @@
 
 
 :root {
-    --font-color-main: #012F4B;
-    --font-color-sub: #0f3b57;
+    --color-font-main: #012F4B;
+    --color-font-sub: #0f3b57;
+    --color-font-accent: rgb(201, 57, 64);
+    --color-background: #EBEEF9;
 }
 
 section {
     font-family: "Noto Sans", "Noto Sans JP";
     justify-content: start;
-    background-color: #EBEEF9;
-    color: var(--font-color-main);
+    background-color: var(--color-background);
+    color: var(--color-font-main);
     padding: 30px 70px;
 }
 
@@ -33,12 +35,11 @@ blockquote,
 code,
 pre {
     font-family: consolas, "Noto Sans JP";
-    color: var(--font-color-sub);
+    color: var(--color-font-sub);
     background-color: white;
     font-weight: 500;
     padding: 3px 6px;
-    border: 1px solid var(--font-color-main);
-    ;
+    border: 1px solid var(--color-font-main);
 }
 
 p:has(+ marp-pre) {
@@ -56,18 +57,16 @@ pre {
 }
 
 h1 {
-    -margin: 0;
     padding: 0;
     font-size: 200%;
     font-weight: 900;
-    color: var(--font-color-main);
-    _padding-bottom: 30px;
+    color: var(--color-font-main);
 }
 
 h2 {
     margin: 0;
     padding: 10px 0 0 0;
-    color: var(--font-color-main);
+    color: var(--color-font-main);
     font-weight: 900;
     padding-bottom: 5px;
 }
@@ -80,22 +79,29 @@ ul {
 
 p,
 li {
-    color: var(--font-color-sub);
+    color: var(--color-font-sub);
     margin-left: 30px;
     font-weight: 500;
     font-size: 120%;
     line-height: 1.2;
+    margin-top: 0;
 }
 
+li+li {
+    margin-top: 0;
+}
 brr {
     display: block;
     content: "";
     margin-top: .5lh;
 }
 
-.disabled {
-    color: hsl(203, 43%, 56%, 60%)
+section.outline .disabled {
+    color: hsl(203, 43%, 56%, 60%);
 }
+section.outline .enabledx {
+}
+
 
 section::after {
     color: #9badbe;
@@ -162,11 +168,11 @@ div.corner-triangle .corner-triangle-text a {
 }
 
 section.outline {
-    background-color: var(--font-color-sub);
+    background-color: var(--color-font-sub);
 }
 
 section.outline>.corner-triangle {
-    border-color: transparent rgb(201, 57, 64) transparent transparent;
+    border-color: transparent var(--color-font-accent) transparent transparent;
 }
 
 aaasection.outline::before {
@@ -196,11 +202,29 @@ section.outline h1 {
 section.outline p,
 section.outline h1,
 section.outline h2,
-section.outline h3 {
+section.outline h3,
+section.outline ul,
+section.outline li {
     color: #eff3f5;
 }
 
 p:has(subb) {
     font-size: 70%;
     font-weight: 400;
+}
+
+.logo {
+    position: absolute;
+    font-family: consolas;
+    font-size: 120%;
+    font-weight: bold;
+    line-height: 200px;
+    left: 630px;
+    top: 340px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    color: var(--color-background);
+    text-align: center;
+    background: var(--color-font-main);
 }
