@@ -41,7 +41,7 @@ B3授業 (演習D･実験B) の経験から考える
 <span class="disabled">・DRY･KISS･YAGNI</span>
 <span class="disabled">・コメントはない方が良い</span>
 <span class="disabled">・状態を減らす</span>
-<span class="disabled">・bb</span>
+<span class="disabled">・bbx</span>
 
 
 ---
