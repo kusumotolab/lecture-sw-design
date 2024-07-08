@@ -6,13 +6,13 @@ paginate: true
 title: SW設計論 #11
 ---
 <!-- _class: title -->
-# ソフトウェア設計論 <div class="logo">#11</div>
+# ソフトウェア設計論 <div class="logo">#14</div>
 ## まつ本
 
 ---
 # 何の授業をしようか･･･
 ## SW設計の内容であること
-単なる前提, ただし広い
+単なる前提, ただし広い, ただし2回だけ
 
 ## 被らないこと
 SW設計論13回 (楠本) 要求･見積･RFP
@@ -20,7 +20,7 @@ SW開発論15回 (肥後) 要求･設計･実装･テスト
 
 ## 役立つ内容にしたい
 情報科学研究科の最大公約数を
-幸いSW工学･設計周りは汎用的で役に立ちやすい
+幸いSW設計･工学周りは汎用的で役に立ちやすい
 
 ## 知らなさそうな話をしたい
 B3授業 (演習D･実験B) の経験から考える
@@ -28,14 +28,13 @@ B3授業 (演習D･実験B) の経験から考える
 ---
 <!-- _class: outline-->
 # 開発者が知っておくべきトピック集<br><sub>－実装編－</sub>
-<div class="corner-triangle"><div class="corner-triangle-text">目次</div></div>
+<div class="corner-triangle"><div class="corner-triangle-text"></div></div>
 
 <span class="disabled">・SWEBOK</span>
 <span class="disabled">・良い名前をつける</span>
 <span class="disabled">・動くの先にある良いプログラム</span>
 <span class="disabled">・良いプログラムとは？</span>
 <span class="disabled">・_Don't call us, we'll call you_</span>
-<span class="enabledx">・goto不要論からの学び</span>
 <span class="disabled">・goto不要論からの学び</span>
 <span class="disabled">・できないことを増やす</span>
 <span class="disabled">・分割統治</span>
@@ -73,7 +72,7 @@ Data Management BOK
 4. SWテスティング
 5. SW保守
 6. SW構成管理
-7. SWエンジニアリング・マネージメント
+7. SWエンジニアリング･マネージメント
 8. SWエンジニアリングプロセス
 9. SWエンジニアリングモデルおよび方法
 10. SW品質
@@ -95,7 +94,7 @@ Data Management BOK
     - イベントに対する制御と処理
     - データの永続化
     - コンポーネントの分散化
-    - エラー・例外処理
+    - エラー･例外処理
     - 対話と表示
     - セキュリティ
   - SW構造とアーキテクチャ
@@ -115,7 +114,7 @@ Data Management BOK
 4. SWテスティング   // 次回
 5. SW保守
 6. SW構成管理
-7. SWエンジニアリング・マネージメント
+7. SWエンジニアリング･マネージメント
 8. SWエンジニアリングプロセス
 9. SWエンジニアリングモデルおよび方法
 10. SW品質
@@ -127,8 +126,14 @@ Data Management BOK
 ```
 
 ---
+<!-- _class: outline-->
+# 開発者が知っておくべきトピック集<br><sub>－実装編－</sub>
+<div class="corner-triangle"><div class="corner-triangle-text"></div></div>
+
+---
 # 良い名前をつける
 良いプログラミングの第一歩
+簡単で効果あり
 
 ```diff
 - return result; // 抽象的すぎて何も伝わらない
@@ -136,7 +141,8 @@ Data Management BOK
 ```
 
 ```diff
-- int delay = 1000;   // delay WHAT?+ int delayMs = 1000; // 単位をつけるべき
+- int delay = 1000;   // delay WHAT?
++ int delayMs = 1000; // 単位をつけるべき
 ```
 
 ```java
@@ -162,7 +168,7 @@ if (debug) {
 `get` よりも `compute` `calculate` `retrieve` `extract`
 
 ## 分離する (関数名の場合)
-名前をつけられない＝やりすぎ
+名前をつけられない ≒ やりすぎ
 
 ## 他者のソースコードを読む <sub>[git/builtin/clone.c](https://github.com/git/git/blob/master/builtin/clone.c)</sub>
 ```c
@@ -211,7 +217,7 @@ Lv1+Lv2で動くプログラムは作れる
 構造化･オブジェクト指向･関数型･宣言型
 
 パラダイムの理解には様々な概念の理解が必要
-　- OO：カプセル化･継承･移譲･ポリモルフィズム
+　- OOP：カプセル化･継承･移譲
 　- 関数型：参照透過性･冪等性･純粋性･副作用
 
 Lv2は具体的で簡単, Lv3は抽象的で難しい
@@ -232,10 +238,25 @@ LibやFWを使う際に開発者の気持ちがわかる
 適切な名前･関数分割･浅いネスト等
 
 ---
+# Lv3は体系知識が必要
+## 実践だけではに身につかない
+コードだけ眺めていても分からない
+Web検索による断片的知識でも怪しい
+手を動かさない時間が必要
+
+## 歴史の勉強も有用
+非構造 → 構造 → OOP･関数型･宣言的
+どういう背景･問題からその概念が生まれたのか？
+
+## 他言語に触るのも有用
+海外に行くと日本の車道の平らさがわかる
+日本にいるだけでは気付けない
+
+---
 # 良いプログラムとは？
 ## 信頼性･効率性 <sub>(実行的側面の良さ)</sub>
 目的を満たすか？バグがないか？
-リソースの無駄がないか？
+計算リソースの無駄がないか？
 
 ## 可読性･保守性
 読みやすいか？意図を汲み取れるか？
@@ -252,7 +273,7 @@ LibやFWを使う際に開発者の気持ちがわかる
 
 ---
 # _Don't call us, we'll call you_
-## 制御の反転・ハリウッド原則
+## 制御の反転･ハリウッド原則
 制御の主となるmain()を自分で書かない
 フレームワークはこの考えに基づく
 
@@ -272,6 +293,7 @@ LibやFWを使う際に開発者の気持ちがわかる
 [Library]
 ```
 
+<!--
 ---
 # FWの利用方法
 FWのルールに則ってプログラムを作る
@@ -281,10 +303,11 @@ FWのルールに則ってプログラムを作る
 
 システム全体の制御を考えなくてよい
 
-## 
+-->
+
 ---
 # 制御の反転の一例
-## Flask
+## Flask <sub>(Pythonの軽量WebアプリFW)</sub>
 ```py
 from flask import Flask
 app = Flask(__name__)
@@ -293,6 +316,7 @@ app = Flask(__name__)
 def hello_world():
   return "<p>Hello, World!</p>"
 ```
+`http://localhost:5000/` → `<p>Hello, World</p>`
 
 ## Arduino言語
 ```c
@@ -305,10 +329,11 @@ void loop() {
 ```
 
 ---
-# 制御の反転のpros/cons
+# 制御の反転のPros･Cons
 ## Pros
 FWを利用する開発者はとても楽
 共通の処理をFWに任せられる
+システム全体の制御を考えなくて良い
 関心の分離が可能
 
 ## Cons
@@ -316,8 +341,8 @@ FWを利用する開発者はとても楽
 かゆいところに手が届かない
 
 FWに対する深い理解が必要
-　- いつcallback関数のか？
-
+　- いつcallback関数が呼ばれるか？
+　- 開発者の気持ちを理解するべき
 
 ---
 <!-- _class: outline--><!-- -------------------------------------------------------------------------------- -->
@@ -363,24 +388,23 @@ qsort_done:
 ---
 # goto文の何が悪いのか？
 ## goto文は一見すごい命令
-高い汎用性：分岐･繰返･関数の必須要素
-使いやすい：`label:` `goto label` のみ
+高い汎用性：分岐･繰返･関数の基本要素
+使いやすい：`LABEL:` `goto LABEL` のみ
 
 プログラムの制御を自在に変更できる
 
 ## 何でもできるのが良くない
-使いやすいがゆえに乱用されがち
-
 無秩序の種
 いわゆるスパゲッティコードの根源
 
 天才なら制御できるかもしれないが常人には無理
 天才は1年後自分コードを理解できるか？
 
+
 ---
 # gotoを許すフローチャート
 ## ![width:700px](fig/runcible.png)
-<subb>RUNCIBLE -algebraic translation on a limited computer</subb>
+<subb>D.E. Knuth, RUNCIBLE -algebraic translation on a limited computer, Commn ACM, 1959</subb>
 
 ---
 # goto不要論からの学び
@@ -413,9 +437,11 @@ qsort_done:
 
 <br>
 
-> ～における
+> ～における～
 
-> ～に関する
+> ～に関する～
+
+> ～のようなかたちです．
 
 ---
 # レポートより
@@ -427,11 +453,13 @@ qsort_done:
 ---
 # できないことを増やす
 ## globalよりもlocal, publicよりもprivate
-変数･フィールドの可視性を下げる
+変数･フィールドの可視性 (見える範囲) を下げる
 変数･フィールドが及ぼしうる影響範囲を最小限に
+秩序を保つ
 
 ## 可変よりも不変
 変数の書き換えを禁止する
+
 Rustはデフォルトで不変
 ```rust
 let x = 5;     // 不変（デフォルト）
@@ -444,7 +472,7 @@ let mut y = 5; // 可変
 
 
 ---
-<!-- _class: outline--><!-- -------------------------------------------------------------------------------- -->
+<!-- _class: outline--><!-- --------- -->
 # <!--fit-->outline
 
 ---
@@ -465,13 +493,15 @@ let mut y = 5; // 可変
 ## 大きな問題を制御可能な程度に小さく分解する
 大きな問題に体当たりしてはいけない
 小さく分解して一つずつ解決する
-
-
+優先順位をつけるとベター
 
 ## エンジニアリングの基本
 ComplexをComplicatedにする第一歩
-プログラミング以外にも適用できる
 
+プログラミング以外にも適用できる
+　- パーティーの準備をする
+　- 授業の準備をする
+　- 研究する
 
 ---
 # 実験スクリプトの例
@@ -497,6 +527,11 @@ $ apply-y.py in-file out-file  # 最優先で取り組むべき
 ```sh
 $ find in -type f | xargs -i apply-x.py {} out/{}
 ```
+
+
+---
+<!-- _class: outline--><!-- --------- -->
+# <!--fit-->outline
 
 ---
 # レポートより
@@ -554,8 +589,11 @@ void doSomething() {
 + show();
 }
 ```
+関数は分割統治手法でもあり命名手法でもある
 
 ---
+# <br>
+
 ## コードから分からないことをコメントに書く
 TODOコメント
 ```java
@@ -572,7 +610,7 @@ while (offset < size && buf[offset++] != '\n') {
 
 複雑な命令の補足
 ```java
-// email matcher (e.g., test@gmail.com)
+// email matcher (e.g., test@example.com)
 Pattern.compile("^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
 ```
 
@@ -594,3 +632,25 @@ Pattern.compile("^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
 
 ## ソースコードはコミュニケーション
 
+---
+# 演習 <sub>(10m)</sub>
+## 作成したプログラムのコードレビューをせよ
+題材はなんでもOK
+　- 学部の演習･実験
+　- 研究用の実験スクリプト
+
+可読性･保守性の問題点を3つ以上列挙せよ
+
+それぞれについて改善方法を考えること
+
+
+---
+
+```java
+main() {
+  ...
+  if (flag) {
+
+  }
+}
+```
