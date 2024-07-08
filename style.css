@@ -1,0 +1,230 @@
+/* @theme shin */
+@import 'default';
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+:root {
+    --color-font-main: #012F4B;
+    --color-font-sub: #0f3b57;
+    --color-font-accent: rgb(201, 57, 64);
+    --color-background: #EBEEF9;
+}
+
+section {
+    font-family: "Noto Sans", "Noto Sans JP";
+    justify-content: start;
+    background-color: var(--color-background);
+    color: var(--color-font-main);
+    padding: 30px 70px;
+}
+
+*::selection {
+    background-color: rgba(255, 255, 0, 0.5);
+}
+
+section.title {
+    padding-top: 400px;
+}
+
+sub {
+    bottom: 0;
+}
+
+blockquote,
+code,
+pre {
+    font-family: consolas, "Noto Sans JP";
+    color: var(--color-font-sub);
+    background-color: white;
+    font-weight: 500;
+    padding: 3px 6px;
+    border: 1px solid var(--color-font-main);
+}
+
+p:has(+ marp-pre) {
+    margin-bottom: 0;
+    padding-bottom: 5px;
+}
+
+code {
+    font-size: 70%;
+    vertical-align: middle;
+}
+
+pre {
+    margin-left: 30px;
+}
+
+h1 {
+    padding: 0;
+    font-size: 200%;
+    font-weight: 900;
+    color: var(--color-font-main);
+}
+
+h2 {
+    margin: 0;
+    padding: 10px 0 0 0;
+    color: var(--color-font-main);
+    font-weight: 900;
+    padding-bottom: 5px;
+}
+
+ul {
+    list-style-type: "- ";
+    margin-top: 0;
+    padding-top: 0;
+}
+
+p,
+li {
+    color: var(--color-font-sub);
+    margin-left: 30px;
+    font-weight: 500;
+    font-size: 120%;
+    line-height: 1.2;
+    margin-top: 0;
+}
+
+li+li {
+    margin-top: 0;
+}
+brr {
+    display: block;
+    content: "";
+    margin-top: .5lh;
+}
+
+section.outline .disabled {
+    color: hsl(203, 43%, 56%, 60%);
+}
+section.outline .enabledx {
+}
+
+
+section::after {
+    color: #9badbe;
+}
+
+blockquote {
+    background-color: #dadfec;
+    position: relative;
+    border: none;
+    padding-left: 40px;
+}
+
+blockquote::after {
+    content: "“";
+    font-family: Arial;
+    font-size: 500%;
+    color: #8697a7;
+    display: block;
+    position: absolute;
+    left: 5px;
+    top: -55px;
+    bottom: 0;
+    margin: auto;
+}
+
+div.corner-triangle {
+    display: block;
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 0 150px 150px 0;
+    border-color: transparent #608A32 transparent transparent;
+    position: fixed;
+    top: 0;
+    right: 0;
+    color: white;
+}
+
+div.corner-triangle .corner-triangle-text {
+    position: relative;
+    top: 40px;
+    right: -60px;
+    width: 100px;
+    font-family: consolas, "Noto Sans JP";
+    font-weight: 600;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+div.corner-triangle .corner-triangle-text span.corner-triangle-firstline {
+    margin-left: 29px;
+}
+
+div.corner-triangle .corner-triangle-text a {
+    color: white;
+}
+
+.bespoke-marp-osc {
+    display: hidden;
+
+}
+
+section.outline {
+    background-color: var(--color-font-sub);
+}
+
+section.outline>.corner-triangle {
+    border-color: transparent var(--color-font-accent) transparent transparent;
+}
+
+aaasection.outline::before {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: -1;
+    display: block;
+    background-image: url("fig/guidepost.png");
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-position: bottom right;
+    width: 95%;
+    height: 100%;
+    filter: brightness(1.6) contrast(0.95) opacity(0.4) blur(3px);
+}
+
+section.outline p {
+    margin-left: 0;
+}
+
+section.outline h1 {
+    font-size: 160%;
+}
+
+section.outline p,
+section.outline h1,
+section.outline h2,
+section.outline h3,
+section.outline ul,
+section.outline li {
+    color: #eff3f5;
+}
+
+p:has(subb) {
+    font-size: 70%;
+    font-weight: 400;
+}
+
+.logo {
+    position: absolute;
+    font-family: consolas;
+    font-size: 120%;
+    font-weight: bold;
+    line-height: 200px;
+    left: 630px;
+    top: 340px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    color: var(--color-background);
+    text-align: center;
+    background: var(--color-font-main);
+}
