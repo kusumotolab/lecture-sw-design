@@ -30,19 +30,17 @@ B3授業 (演習D･実験B) の経験から考える
 # 開発者が知っておくべきトピック集<br><sub>－実装編－</sub>
 <div class="corner-triangle"><div class="corner-triangle-text"></div></div>
 
-<span class="disabled">・SWEBOK</span>
-<span class="disabled">・良い名前をつける</span>
-<span class="disabled">・動くの先にある良いプログラム</span>
-<span class="disabled">・良いプログラムとは？</span>
-<span class="disabled">・_Don't call us, we'll call you_</span>
-<span class="disabled">・goto不要論からの学び</span>
-<span class="disabled">・できないことを増やす</span>
-<span class="disabled">・分割統治</span>
-<span class="disabled">・DRY･KISS･YAGNI</span>
-<span class="disabled">・コメントはない方が良い</span>
-<span class="disabled">・状態を減らす</span>
-<span class="disabled">・xxbbx</span>
-
+<span class="xisabled">・SWEBOK</span>
+<span class="xisabled">・良い名前をつける</span>
+<span class="xisabled">・コメントはない方が良い</span>
+<span class="xisabled">・動くの先にある良いプログラム</span>
+<span class="xisabled">・良いプログラムとは？</span>
+<span class="xisabled">・_Don't call us, we'll call you_</span>
+<span class="xisabled">・goto不要論からの学び</span>
+<span class="xisabled">・できないことを増やす</span>
+<span class="xisabled">・Complex vs Complicated</span>
+<span class="xisabled">・分割統治</span>
+<span class="xisabled">・DRY･KISS･YAGNI</span>
 
 ---
 # ソフトウェア工学基礎知識体系
@@ -130,6 +128,19 @@ Data Management BOK
 # 開発者が知っておくべきトピック集<br><sub>－実装編－</sub>
 <div class="corner-triangle"><div class="corner-triangle-text"></div></div>
 
+<span class="disabled">・SWEBOK</span>
+<span class="xisabled">・良い名前をつける</span>
+<span class="xisabled">・コメントはない方が良い</span>
+<span class="disabled">・動くの先にある良いプログラム</span>
+<span class="disabled">・良いプログラムとは？</span>
+<span class="disabled">・_Don't call us, we'll call you_</span>
+<span class="disabled">・goto不要論からの学び</span>
+<span class="disabled">・できないことを増やす</span>
+<span class="disabled">・Complex vs Complicated</span>
+<span class="disabled">・分割統治</span>
+<span class="disabled">・DRY･KISS･YAGNI</span>
+
+
 ---
 # 良い名前をつける
 良いプログラミングの第一歩
@@ -185,14 +196,120 @@ fatal: You must specify a repository to clone.
 usage: git clone [<options>] [--] <repo> [<dir>]
 ```
 
+---
+# レポートより
+<br>
+
+> コメントを書くのを忘れていた
+> 今後は丁寧にコメントを書きたい
+
+<details><summary></summary>
+
+![width:900px](fig/maeken.png)
+</details>
+
+
+---
+# コメントにも作法がある
+## コードから伝わることを書かない
+
+```java
+class User {
+  // constructor
+  public User() { ..
+
+  // find users by status
+  List<User> find(Status s) {
+
+    // initialize
+    String msg = "";
+```
+
+役に立たない, ノイズにしかならない
+ファイルがでかくなる
+メンテも大変
+
+---
+# コードとコメントの不一致
+<div class="corner-triangle"><div class="corner-triangle-text">雑談</div></div>
+
+## ![](fig/comment-inconsistency.png)
+
+<subb>F. Wen et al., Int'l Conf. Program Comprehension (ICPC) 2019.</subb>
+
+
+---
+# コメントの作法 <sub>(1/2)</sub>
+## コメントがなくても伝わるように
+```diff
+- // ボタンを離した瞬間
+- if (buttonState == LOW && lastButtonState == HIGH) {
++ if (hasButtonPressed()) {
+```
+
+```diff
+void doSomething() {
+- // setup
+- ..
+- // calculate
+- ..
+- // show
+- ..
++ setup();
++ calculate();
++ show();
+}
+```
+関数化は分割統治手法でもあり命名手法でもある
+
+---
+# コメントの作法 <sub>(2/2)</sub>
+
+## コードから分からないことをコメントに書く
+TODOコメント
+```java
+// TODO: null時の処理を追加する
+// FIXME: 処理が重いので最適化すべき
+```
+
+何もしないことの明記
+```c
+while (offset < size && buf[offset++] != '\n') {
+  ; // do nothing
+}
+```
+
+複雑な命令の補足
+```java
+// email matcher (e.g., test@example.com)
+Pattern.compile("^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
+```
+
+一時策であることの明記
+```java
+// workaround for issue#30
+```
 
 ---
 <!-- _class: outline-->
-# <!--fit-->outline
+# 開発者が知っておくべきトピック集<br><sub>－実装編－</sub>
+<div class="corner-triangle"><div class="corner-triangle-text"></div></div>
+
+<span class="disabled">・SWEBOK</span>
+<span class="disabled">・良い名前をつける</span>
+<span class="disabled">・コメントはない方が良い</span>
+<span class="xisabled">・動くの先にある良いプログラム</span>
+<span class="xisabled">・良いプログラムとは？</span>
+<span class="disabled">・_Don't call us, we'll call you_</span>
+<span class="disabled">・goto不要論からの学び</span>
+<span class="disabled">・できないことを増やす</span>
+<span class="disabled">・Complex vs Complicated</span>
+<span class="disabled">・分割統治</span>
+<span class="disabled">・DRY･KISS･YAGNI</span>
 
 
 ---
-# 動くプログラムは簡単
+# 動くプログラム
 ## プログラミング言語の基本命令
 変数の宣言 `int i` `String s` `var v`
 四則演算 `sum+100` `i++` `total*rate`
@@ -239,7 +356,7 @@ LibやFWを使う際に開発者の気持ちがわかる
 
 ---
 # Lv3は体系的な知識が必要
-## 実践だけではに身につかない
+## 実践だけでは身につかない
 コードだけ眺めていても分からない
 Web検索による断片的知識でも怪しい
 手を動かさない時間が必要
@@ -270,7 +387,20 @@ Web検索による断片的知識でも怪しい
 
 ---
 <!-- _class: outline-->
-# <!--fit-->outline
+# 開発者が知っておくべきトピック集<br><sub>－実装編－</sub>
+<div class="corner-triangle"><div class="corner-triangle-text"></div></div>
+
+<span class="disabled">・SWEBOK</span>
+<span class="disabled">・良い名前をつける</span>
+<span class="disabled">・コメントはない方が良い</span>
+<span class="disabled">・動くの先にある良いプログラム</span>
+<span class="disabled">・良いプログラムとは？</span>
+<span class="xisabled">・_Don't call us, we'll call you_</span>
+<span class="xisabled">・goto不要論からの学び</span>
+<span class="xisabled">・できないことを増やす</span>
+<span class="disabled">・Complex vs Complicated</span>
+<span class="disabled">・分割統治</span>
+<span class="disabled">・DRY･KISS･YAGNI</span>
 
 ---
 # _Don't call us, we'll call you_
@@ -344,10 +474,6 @@ FWを利用する開発者はとても楽
 FWに対する深い理解が必要
 　- いつcallback関数が呼ばれるか？
 　- 開発者の気持ちを理解するべき
-
----
-<!-- _class: outline--><!-- -------------------------------------------------------------------------------- -->
-# <!--fit-->outline
 
 ---
 # goto有害論
@@ -446,10 +572,15 @@ qsort_done:
 
 ---
 # レポートより
-<br><br><br><br><brr><brr><brr>
+<br>
 
 > グローバル変数はとても使いやすかったので
 > 今後積極的に使っていきたい
+
+<details><summary></summary>
+
+![width:900px](fig/maeken.png)
+</details>
 
 ---
 # できないことを増やす
@@ -473,8 +604,21 @@ let mut y = 5; // 可変
 
 
 ---
-<!-- _class: outline--><!-- --------- -->
-# <!--fit-->outline
+<!-- _class: outline-->
+# 開発者が知っておくべきトピック集<br><sub>－実装編－</sub>
+<div class="corner-triangle"><div class="corner-triangle-text"></div></div>
+
+<span class="disabled">・SWEBOK</span>
+<span class="disabled">・良い名前をつける</span>
+<span class="disabled">・コメントはない方が良い</span>
+<span class="disabled">・動くの先にある良いプログラム</span>
+<span class="disabled">・良いプログラムとは？</span>
+<span class="disabled">・_Don't call us, we'll call you_</span>
+<span class="disabled">・goto不要論からの学び</span>
+<span class="disabled">・できないことを増やす</span>
+<span class="xisabled">・Complex vs Complicated</span>
+<span class="xisabled">・分割統治</span>
+<span class="xisabled">・DRY･KISS･YAGNI</span>
 
 ---
 # Complex vs Complicated
@@ -531,102 +675,6 @@ $ find in -type f | xargs -i apply-x.py {} out/{}
 
 
 ---
-<!-- _class: outline--><!-- --------- -->
-# <!--fit-->outline
-
----
-# レポートより
-<br><br><br><br>
-
-> コメントを書くのを忘れていた
-> 今後は丁寧にコメントを書きたい
-
----
-# コメントにも作法がある
-## コードから伝わることを書かない
-
-```java
-class User {
-  // constructor
-  public User() { ..
-
-  // find users by status
-  List<User> find(Status s) {
-
-    // initialize
-    String msg = "";
-```
-
-役に立たない, ノイズにしかならない
-ファイルがでかくなる
-メンテも大変
-
----
-# コードとコメントの不一致
-## ![](fig/comment-inconsistency.png)
-
-<subb>F. Wen et al., Int'l Conf. Program Comprehension (ICPC) 2019.</subb>
-
-
----
-# コメントの作法 <sub>(1/2)</sub>
-## コメントがなくても伝わるように
-```diff
-- // ボタンを離した瞬間
-- if (buttonState == LOW && lastButtonState == HIGH) {
-+ if (hasButtonPressed()) {
-```
-
-```diff
-void doSomething() {
-- // setup
-- ..
-- // calculate
-- ..
-- // show
-- ..
-+ setup();
-+ calculate();
-+ show();
-}
-```
-関数は分割統治手法でもあり命名手法でもある
-
----
-# コメントの作法 <sub>(2/2)</sub>
-
-## コードから分からないことをコメントに書く
-TODOコメント
-```java
-// TODO: null時の処理を追加する
-// FIXME: 処理が重いので最適化すべき
-```
-
-何もしないことの明記
-```c
-while (offset < size && buf[offset++] != '\n') {
-  ; // do nothing
-}
-```
-
-複雑な命令の補足
-```java
-// email matcher (e.g., test@example.com)
-Pattern.compile("^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
-```
-
-一時策であることの明記
-```java
-// workaround for issue#30
-```
-
-
----
-<!-- _class: outline--><!-- --------- -->
-# <!--fit-->outline
-
-
----
 # DRYの原則
 ## Don't repeat yourself <sub>－ 繰り返すな</sub>
 繰り返すとメンテが大変
@@ -673,13 +721,14 @@ n * m;
 
 ---
 # YAGNI
-## You ain't going to need it <sub>－ それたぶんいらんよ</sub>
+## You aren't gonna need it <sub>－ それたぶんいらんよ</sub>
 未来のための拡張の余地を作らない
 必要になったときに実装する
 
 OOPでよく陥る
 今必要でないならやらない
-```
+
+```java
 interface X {
   ...
 }
@@ -691,18 +740,21 @@ public class Y implements X {
 怠惰の理由にしないように
 
 ---
-# プログラミング
+# 良いプログラマ
 ## プログラミングは機械との対話でだけはない
 人との対話という側面もある
-人には他者と未来の自分を含む
+「人」には他者だけでなく未来の自分を含む
 
 人に伝わるコードを書こう
 それが結果的に自分を助ける
 
-## ソースコードはコミュニケーション
-相手の能力を類推する力
-言語能力
-論理的思考
+## 良いプログラマはコミュニケーションもうまい
+数学的素養だけでなく国語的素養
+論理的思考力だけでなく言語能力
+(叙情的･詩的な力は不要)
+
+客観視能力も必要
+相手がどう感じるかを類推する
 
 ---
 # 演習 <sub>(10m)</sub>
@@ -711,20 +763,12 @@ public class Y implements X {
 　- 学部の演習･実験
 　- 研究用の実験スクリプト
 
-可読性･保守性の問題点を3つ以上列挙せよ
-　- 効率性やバグは対象外
+1．可読性･保守性の問題点を3つ以上列挙せよ
+　- リソース効率や機能不備は対象外
 　- 名前等の字面だけでなく構造的な問題も
 
-問題点それぞれについて具体的な改善を考えよ
+ 2．問題点それぞれについて具体的な改善を考えよ
 
+## 提出方法
+CLEに1と2のテキストを提出すること
 
----
-
-```java
-main() {
-  ...
-  if (flag) {
-
-  }
-}
-```
