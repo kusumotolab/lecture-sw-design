@@ -3,7 +3,7 @@ marp: true
 size: 4:3
 theme: shin
 paginate: true
-title: SW設計論 #11
+title: SW設計論 #14
 ---
 <!-- _class: title -->
 # ソフトウェア設計論 <div class="logo">#14</div>
