@@ -20,15 +20,28 @@
 <p><span class="xisabled">・SWEBOK</span></p>
 <p>・テストはユーザ第1号である<br />
 ・バグを直す前にテストを落とす<br />
-・リファクタリングする前にテストをする</p>
+・リファクタリングする前にテストをする<br />
+・テストをしよう</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 960 720"><foreignObject width="960" height="720"><section id="3" data-paginate="true" data-theme="shin" data-marpit-pagination="3" data-marpit-pagination-total="5" style="--paginate:true;--theme:shin;" data-size="4:3">
 <h1>SWテスト</h1>
 <p>対象SWが意図通り動くかを検証するプロセス<br />
-下流工程の一つ<br />
-　実装とテストがほぼ1：1</p>
+下流工程の一つ, 実装とほぼ1:1</p>
 <p>基本はSWを叩いてみて確認する<br />
 （コードレビューは叩かずに確かめる方法）</p>
+<p>ソートプログラム <code>sort(arr)</code> に対するテスト</p>
+<pre is="marp-pre" data-auto-scaling="downscale-only"><code class="language-java"><span class="hljs-meta">@Test</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testSort1</span><span class="hljs-params">()</span> {
+  expected = sort([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]);     <span class="hljs-comment">// プログラムを叩いてみる</span>
+  <span class="hljs-keyword">assert</span>(expected).is([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]); <span class="hljs-comment">// その結果が正しいか検証</span>
+}
+<span class="hljs-meta">@Test</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testSort2</span><span class="hljs-params">()</span> {
+  expected = sort([<span class="hljs-number">5</span>,<span class="hljs-number">1</span>,<span class="hljs-number">2</span>]);
+  <span class="hljs-keyword">assert</span>(expected).is([<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">5</span>]);
+}
+<span class="hljs-meta">@Test</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">testSortNull</span><span class="hljs-params">()</span> {
+  expected = sort(<span class="hljs-literal">null</span>);
+  ...
+</code></pre>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 960 720"><foreignObject width="960" height="720"><section id="4" data-paginate="true" data-theme="shin" data-marpit-pagination="4" data-marpit-pagination-total="5" style="--paginate:true;--theme:shin;" data-size="4:3">
 <h1>様々なテスト</h1>
@@ -43,9 +56,12 @@
 非機能 (負荷テスト, パフォーマンステスト, ..)</p>
 </section>
 </foreignObject></svg><svg data-marpit-svg="" viewBox="0 0 960 720"><foreignObject width="960" height="720"><section id="5" data-paginate="true" data-theme="shin" data-marpit-pagination="5" data-marpit-pagination-total="5" style="--paginate:true;--theme:shin;" data-size="4:3">
-<p><br /><br /><br /><br /><br /></p>
+<p><br /><br /><br /><br /></p>
 <blockquote>
 <p>Program testing can be used to show the presence of bugs, but never to show their absence</p>
+</blockquote>
+<blockquote>
+<p>テストはバグが存在することを示せるが，バグがないことは示せない</p>
 </blockquote>
 <p><sub>Edsger W. Dijkstra</sub></p>
 </section>
