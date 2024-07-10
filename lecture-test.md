@@ -19,17 +19,30 @@ title: SW設計論 #15
 ・テストはユーザ第1号である
 ・バグを直す前にテストを落とす
 ・リファクタリングする前にテストをする
-
+・テストをしよう
 
 ---
 # SWテスト
 対象SWが意図通り動くかを検証するプロセス
-下流工程の一つ
-　実装とテストがほぼ1：1
+下流工程の一つ, 実装とほぼ1:1
 
 基本はSWを叩いてみて確認する
 （コードレビューは叩かずに確かめる方法）
 
+ソートプログラム `sort(arr)` に対するテスト
+```java
+@Test void testSort1() {
+  expected = sort([1,2,3]);     // プログラムを叩いてみる
+  assert(expected).is([1,2,3]); // その結果が正しいか検証
+}
+@Test void testSort2() {
+  expected = sort([5,1,2]);
+  assert(expected).is([1,2,5]);
+}
+@Test void testSortNull() {
+  expected = sort(null);
+  ...
+```
 
 ---
 
@@ -47,8 +60,10 @@ title: SW設計論 #15
 非機能 (負荷テスト, パフォーマンステスト, ..)
 
 ---
-<br><br><br><br><br>
+<br><br><br><br>
 
 > Program testing can be used to show the presence of bugs, but never to show their absence
+
+> テストはバグが存在することを示せるが，バグがないことは示せない
 
 <sub>Edsger W. Dijkstra</sub>
