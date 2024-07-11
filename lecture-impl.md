@@ -174,6 +174,15 @@ if (debug) {
 ```
 
 ---
+# プログラムの名前の研究
+<div class="corner-triangle"><div class="corner-triangle-text">雑談</div></div>
+
+![](fig/paper-effects-of-var-names.png)
+
+![](fig/paper-how-developer-choose-names.png)
+
+
+---
 # 良い名前をつけるには?
 ## 色のある動詞を考える
 `get` よりも `compute` `calculate` `retrieve` `extract`
@@ -198,15 +207,10 @@ usage: git clone [<options>] [--] <repo> [<dir>]
 
 ---
 # レポートより
-<br>
+<br><br><br><br>
 
 > コメントを書くのを忘れていた
-> 今後は丁寧にコメントを書きたい
-
-<details><summary></summary>
-
-![width:900px](fig/maeken.png)
-</details>
+> 今後はできる限りコメントを書きたい
 
 
 ---
@@ -568,19 +572,16 @@ qsort_done:
 
 > ～に関する～
 
-> ～のようなかたちです．
+> ～のようなかたちです
 
 ---
 # レポートより
-<br>
+
+<br><br><br><br>
 
 > グローバル変数はとても使いやすかったので
 > 今後積極的に使っていきたい
 
-<details><summary></summary>
-
-![width:900px](fig/maeken.png)
-</details>
 
 ---
 # できないことを増やす
@@ -675,7 +676,7 @@ $ find in -type f | xargs -i apply-x.py {} out/{}
 
 
 ---
-# DRYの原則
+# DRY
 ## Don't repeat yourself <sub>－ 繰り返すな</sub>
 繰り返すとメンテが大変
 変更の際に多くの書き換えが発生する
@@ -696,7 +697,7 @@ log(log.WARN, "Something happens")
 
 
 ---
-# KISSの原則
+# KISS
 ## Keep it simple stupid <sub>－ 単純にしておけ</sub>
 複雑なほどバグが増, 可読性も低, メンテも大変
 最小限にしておく
@@ -770,5 +771,5 @@ public class Y implements X {
  2．問題点それぞれについて具体的な改善を考えよ
 
 ## 提出方法
-CLEに1と2のテキストを提出すること
+1と2をまとめたテキストをCLEに提出すること
 

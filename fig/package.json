@@ -1,7 +1,0 @@
-{
-  "marp": {
-    "themeSet": "./",
-    "output": "test/",
-    "pdf": true
-  }
-}
