@@ -58,7 +58,7 @@ IEEEが作っているSEの知識体系
 ## 他にもいろいろなBOKがある
 Project Management BOK
 Data Management BOK
-主にIT系分野
+主にIT分野
 
 ---
 # SWEBOK 目次
@@ -169,8 +169,8 @@ if (debug) {
 ```
 
 ```diff
-- getMean();     // 開発者の期待を裏切る名前
-+ computeMean(); // 計算コストを要するという旨を伝える
+- getAverage();       // 開発者の期待を裏切る名前
++ calculateAverage(); // 計算コストを要するという旨を伝える
 ```
 
 ---
@@ -178,6 +178,8 @@ if (debug) {
 <div class="corner-triangle"><div class="corner-triangle-text">雑談</div></div>
 
 ![](fig/paper-effects-of-var-names.png)
+
+<brr>
 
 ![](fig/paper-how-developer-choose-names.png)
 
@@ -229,7 +231,8 @@ class User {
     String msg = "";
 ```
 
-役に立たない, ノイズにしかならない
+役に立たない
+ノイズにしかならない
 ファイルがでかくなる
 メンテも大変
 
@@ -332,6 +335,7 @@ Pattern.compile("^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
 ## Lv1. アルゴリズムとデータ構造
 
 ## Lv2. 構文･文法
+
 Lv1+Lv2で動くプログラムは作れる
 
 ## Lv3. パラダイム
@@ -369,7 +373,7 @@ Web検索による断片的知識でも怪しい
 非構造 → 構造 → OOP･関数型･宣言的
 どういう背景･問題からその概念が生まれたのか？
 
-## 複数のプログラミング言語に触るのも有用
+## 複数のプログラミング言語に触るべき
 比較するとわかることも多々ある
 例）海外に行くと日本の車道の平らさがわかる
 
@@ -487,7 +491,7 @@ FWに対する深い理解が必要
 <subb>E.W. Dijkstra, Communications of the ACM, 1968</subb>
 
 ---
-# X Considered Harmful
+# _X Considered Harmful_
 <div class="corner-triangle"><div class="corner-triangle-text">雑談</div></div>
 
 ## ![](fig/considered-harmful.png)
@@ -520,7 +524,7 @@ qsort_done:
 # goto文の何が悪いのか？
 ## goto文は一見すごい命令
 高い汎用性：分岐･繰返･関数の基本要素
-使いやすい：`LABEL:` `goto LABEL` のみ
+使いやすい：`CMP` `JMP` のみ
 
 プログラムの制御を自在に変更できる
 
@@ -529,8 +533,8 @@ qsort_done:
 いわゆるスパゲッティコードの根源
 
 天才なら制御できるかもしれないが常人には無理
-天才は1年後自分コードを理解できるか？
-
+天才は1年後自分のコードを理解できるか？
+天才でも常人への説明責任がある
 
 ---
 # gotoを許すフローチャート
@@ -551,6 +555,7 @@ qsort_done:
 ## できることを制限したほうが良い場合がある
 意図が明確になる
 物事が単純になる
+例外がなくなる
 秩序が生まれる
 
 ---
@@ -572,7 +577,9 @@ qsort_done:
 
 > ～に関する～
 
-> ～のようなかたちです
+> 「～のようなかたちです」
+
+> 「そんな感じです」
 
 ---
 # レポートより
@@ -583,12 +590,13 @@ qsort_done:
 > 今後積極的に使っていきたい
 
 
+
+
 ---
 # できないことを増やす
 ## globalよりもlocal, publicよりもprivate
 変数･フィールドの可視性 (見える範囲) を下げる
 変数･フィールドが及ぼしうる影響範囲を最小限に
-秩序を保つ
 
 ## 可変よりも不変
 変数の書き換えを禁止する
@@ -601,7 +609,7 @@ let mut y = 5; // 可変
 
 ## 自前main()よりも制御の反転
 自分でやらずに誰かに任す
-
+バグを減らす一つの方法はコードを書かないこと
 
 
 ---
@@ -639,6 +647,7 @@ let mut y = 5; // 可変
 ## 大きな問題を制御可能な程度に小さく分解する
 大きな問題に体当たりしてはいけない
 小さく分解して一つずつ解決する
+小さくテストできる
 優先順位をつけるとベター
 
 ## エンジニアリングの基本
@@ -671,20 +680,20 @@ $ apply-y.py in-file out-file  # 最優先で取り組むべき
 ```
 
 ```sh
-$ find in -type f | xargs -i apply-x.py {} out/{}
+$ find in-dir -type f | xargs -i apply-x.py {} out-dir/{}
 ```
 
 
 ---
-# DRY
-## Don't repeat yourself <sub>－ 繰り返すな</sub>
+# DRY <sub>－ 繰り返すな</sub>
+## Don't repeat yourself 
 繰り返すとメンテが大変
 変更の際に多くの書き換えが発生する
 テストもしにくくなる
 
 ```java
 ...
-print("[ERR] Something happens")
+print("[ERROR] Something happens")
 ...
 print("[WARN] Something happens")
 ```
@@ -697,8 +706,8 @@ log(log.WARN, "Something happens")
 
 
 ---
-# KISS
-## Keep it simple stupid <sub>－ 単純にしておけ</sub>
+# KISS <sub>－ 単純にしておけ</sub>
+## Keep it simple stupid 
 複雑なほどバグが増, 可読性も低, メンテも大変
 最小限にしておく
 
@@ -718,11 +727,11 @@ n * m;
 
 
 関数を切り出すときもKISSを考える
-処理内容が一言で説明できる, かつ単純にする
+処理内容を一言で説明できる, かつ単純にする
 
 ---
-# YAGNI
-## You aren't gonna need it <sub>－ それたぶんいらんよ</sub>
+# YAGNI <sub>－ それたぶんいらんよ</sub>
+## You aren't gonna need it 
 未来のための拡張の余地を作らない
 必要になったときに実装する
 
@@ -741,6 +750,23 @@ public class Y implements X {
 怠惰の理由にしないように
 
 ---
+<!-- _class: outline-->
+# 開発者が知っておくべきトピック集<br><sub>－実装編－</sub>
+<div class="corner-triangle"><div class="corner-triangle-text"></div></div>
+
+<span class="xisabled">・SWEBOK</span>
+<span class="xisabled">・良い名前をつける</span>
+<span class="xisabled">・コメントはない方が良い</span>
+<span class="xisabled">・動くの先にある良いプログラム</span>
+<span class="xisabled">・良いプログラムとは？</span>
+<span class="xisabled">・_Don't call us, we'll call you_</span>
+<span class="xisabled">・goto不要論からの学び</span>
+<span class="xisabled">・できないことを増やす</span>
+<span class="xisabled">・Complex vs Complicated</span>
+<span class="xisabled">・分割統治</span>
+<span class="xisabled">・DRY･KISS･YAGNI</span>
+
+---
 # 良いプログラマ
 ## プログラミングは機械との対話でだけはない
 人との対話という側面もある
@@ -752,7 +778,7 @@ public class Y implements X {
 ## 良いプログラマはコミュニケーションもうまい
 数学的素養だけでなく国語的素養
 論理的思考力だけでなく言語能力
-(叙情的･詩的な力は不要)
+<sub>(叙情的･詩的な力は不要)</sub>
 
 客観視能力も必要
 相手がどう感じるかを類推する
