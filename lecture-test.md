@@ -113,3 +113,7 @@ def test_analyze(self):
 > テストはバグが存在することを示せるが，バグがないことは示せない
 
 <sub>Edsger W. Dijkstra</sub>
+
+---
+# テストは証明ではない
+経済
