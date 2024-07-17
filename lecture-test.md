@@ -468,12 +468,15 @@ DUMMY
 <div class="corner-triangle"><div class="corner-triangle-text">雑談</div></div>
 
 数学的･形式的な分析に基づいて信頼性を確認
+システム全体を数学的に表現することで検証する
 
 ![](fig/paper-formal.png)
 <sub>E.M. Clarke et al, ACM Computing Surveys 1996.</sub>
 
 ミッションクリティカル分野で利用されている
 航空システム･医療等
+
+形式手法と比べるとテストは手軽で安価
 
 
 ---
