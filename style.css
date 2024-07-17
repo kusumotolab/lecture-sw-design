@@ -76,6 +76,14 @@ ul {
     margin-top: 0;
     padding-top: 0;
 }
+ol {
+    padding-inline-start: 45px;
+}
+u, u::selection {
+    text-decoration: underline 8pt;
+    text-decoration-color: #ffc3d6;
+    text-underline-offset: -3px;
+}
 
 p,
 li {
@@ -99,9 +107,6 @@ brr {
 section.outline .disabled {
     color: hsl(203, 43%, 56%, 60%);
 }
-section.outline .enabledx {
-}
-
 
 section::after {
     color: #9badbe;
