@@ -70,27 +70,26 @@ title: SW設計論 #15
 # 開発者が知っておくべきトピック集<br><sub>－テスト編－</sub>
 <div class="corner-triangle"><div class="corner-triangle-text"></div></div>
 
-<span class="xisabled">・SWEBOK</span>
 ・SWテストの基本
 ・手動テストは危険
 
-・リファクタリング前にテスト
-・先にテストを書く
-・_Clean code that works_
-・バグを直す前にテストを落とす
+・リファクタリングのためのテスト
+・バグ修正のためのテスト
+
+・テストを先に書く開発スタイル
+・_"Clean code that works"_
 
 ・テストは証明ではない
 ・テストはユーザ第1号である
 
+<span class="xisabled">・SWEBOK</span>
 
 ---
 # SWテスト
 
 対象SWが意図通り動くかを検証するプロセス
 下流工程の一つ, 実装とほぼ1:1
-
-基本はSWを叩いてみて確認する
-<sub>（レビューは叩かずに確かめる方法）</sub>
+基本はSWを叩いてみて確認する <sub>(⇔ レビュー)</sub>
 
 テストの一例：`sort(arr)` の単体テスト
 ```java
@@ -103,8 +102,9 @@ title: SW設計論 #15
   assert(actual).is([1,2,3]);
 }
 @Test void testSortNull() {
-  actual = sort([]);          // 空配列はどうなるか？
-  ...
+  actual = sort(null);        // nullはどうなるか？
+  assert(actual).is(null);
+}  ...
 ```
 
 ---
@@ -144,7 +144,9 @@ List sort(List l) {
 ```
 
 要求とIFが決まればテストは作成できる
-実装より先にテストを作っても良い
+　- 要求 + IF = 実装
+　- 要求 + IF = テスト
+
 
 ---
 # 例：実験スクリプトの場合
@@ -173,15 +175,16 @@ def test_analyze(self):
 
 ## よくある良くない手動テスト
 ```python
-print(sort([1,2,3]));
-print(sort([3,2,1]));
-print(sort([3,2,1,1,1,1,1,1]));
+if __name__ == '__main__':
+  print(sort([1,2,3]));
+  print(sort([3,2,1]));
+  print(sort([3,2,1,1,1,1,1,1,0]));
 ```
 
 ```
 1,2,3
 1,2,3
-1,1,1,1,1,1,2,3
+0,1,1,1,1,1,1,2,3
 ```
 
 検証にコストを要する, ミスする可能性がある
@@ -195,14 +198,12 @@ print(sort([3,2,1,1,1,1,1,1]));
 # 無茶な自動テスト
 
 ```py
-if sort([1,2,3]) == [1,2,3]:
-  print("ok")
-else
-  print("ng")
-if sort([3,1,2]) == [1,2,3]:
-  print("ok")
-else
-  print("ng")
+if __name__ == '__main__':
+  # print(sort([1,2,3]));
+  if sort([1,2,3]) == [1,2,3]:
+    print("ok")
+  else:
+    print("ng")
 ```
 
 ここまでやるならテストFWを使おう
@@ -221,15 +222,16 @@ else
 ```java
 @Test @DisplayName("ソート済みデータのソート")
 void testSort1() {
-  List l = sort([1,2,3]);
-  assertThat(l).equalTo([1,2,3]);
+  List actual = sort([1,2,3]);
+  assertThat(actual).equalTo([1,2,3]);
 }
 ```
 
 ## Python：pytest, unittest
 ```py
 def test_sort1():
-  assert sort([1,2,3]) == [1,2,3]
+  actual = sort([1,2,3])
+  assert actual == [1,2,3]
 ```
 
 ```
@@ -242,6 +244,23 @@ test_sort.py::test_sort3 PASSED                 [100%]
 
 
 ---
+# 手動テストにも価値がある
+
+## E2Eテスト <sub>(End to end)</sub>
+システム全体のテスト
+エンドユーザの実利用を想定したテスト
+
+自動化しにくい, 自動テストに向かない
+
+自動テストでは検証しにくい事項がある
+　- UIのくずれ, 見た目
+　- 操作感
+
+## 向き不向き
+自動テスト：システムの細かな部品
+手動テスト：システム全体の振る舞い
+
+---
 <!-- _class: outline-->
 # 開発者が知っておくべきトピック集<br><sub>－テスト編－</sub>
 <div class="corner-triangle"><div class="corner-triangle-text"></div></div>
@@ -250,8 +269,8 @@ DUMMY
 
 ---
 # リファクタリング
-## 振る舞いを変えずにプログラム内部を改善する
-無駄処理の排除, 関数の切り出し, 変数名の修正, ..
+## プログラムの振る舞いを変えずに内部を改善
+無駄処理の排除, 関数の切り出し, 変数名の修正, ...
 
 プログラムができたらリファクタリングすべき
 良くない状態を放置しない, 負債を貯めない
@@ -269,33 +288,38 @@ DUMMY
 
 ---
 # リファクタリングによる破壊
-## 「振る舞いを変えずに」プログラムを改善～
+## プログラムの「振る舞いを変えずに」を～
 振る舞いを変えないのが難しい
 
 すぐに壊れるならまだマシ
-新たなバグの混入に気づかないことも
+壊れていることに気づかないケースが最悪
+　- 新たなバグの混入
+　- 不要だと判断した処理が実は必要だった
 
 
 ## Q. 振る舞いの維持をどう確認すれば良いか？
 リファクタリング前と後の等価性を判定したい
 
----
-# リファクタリング前にのテスト
-## テストを等価性判定の目安に使う
-リファクタリング前に必ずテストを用意しておく
-テストが通るように内部を改善する
+もし等価性を自動判定できたら？
+　→ リファクタリングを恐れなくて良くなる
 
-リファクタリングによってテストが落ちた
+---
+# <!--fit-->リファクタリングのためのテスト
+## テストを等価性判定の目安に使う
+1. リファクタリング前にテストを用意しておく
+2. テストが通る状態を保ちつつ内部を改善する
+
+リファクタリングによってテストが落ちたら？
 　→ リファクタリング失敗
 
 ## リファクタリングでIFが変わる場合は？
-ラッパーを作っておく
 
 ```diff
 - def sort(arr)
 + def sort(arr, is_ascending)
 ```
 
+ラッパーを作っておく
 ```py
 def sort(arr):
   return sort(arr, True)
@@ -303,7 +327,80 @@ def sort(arr):
 テストとソースを同時に直さない
 
 ---
-# テストを先に書く
+# バグ修正のためのテスト
+## 予期せぬバグが起きた場合：
+1. バグが発生する条件･状況を探す
+
+```java
+sort([3,1,2,-5]);
+   → [1,2,3,-5]
+```
+
+
+2. その条件･状況をテストに起こす
+プログラムの正しい振る舞いを定義 & 自動検証
+```java
+@Test public void testNegative() {
+  List l = sort([3,1,2,-5]);
+  assertThat(l).equalTo([-5,1,2,3]);
+}
+```
+
+3. そのテストが通るようにバグを直す
+
+テストとソースを同時に直さない
+
+
+---
+# バグ報告もテストと同時に
+## バグ報告に書くべき項目
+- バグの概要
+- 環境
+- バグの再現方法 ★
+- 期待する振る舞い ★
+- 実際の振る舞い ★
+
+```java
+@Test public void testNegative() {
+  List l = sort([3,1,2,-5]);
+  assertThat(l).equalTo([-5,1,2,3]);
+}
+```
+
+## 下手な文章よりも役立つ
+機械解読可能 ＝ 客観的
+コード化 ＝ 自動化･再現可能
+
+---
+# 何でもソースコードにしよう
+<div class="corner-triangle"><div class="corner-triangle-text">雑談</div></div>
+
+## インストール手順のコード化
+<sub>※Home brewのインストールスクリプト</sub>
+```
+$ /bin/bash -c "$(curl -fsSL https://raw.git../install.sh)"
+```
+
+
+## ビルド方法･依存解決のコード化
+Java: Gradle, Bazel
+Python: `requirements.txt` + `pip install`
+
+## 仮想環境のコード化
+Docker
+
+## インフラ環境のコード化 (IaC)
+Chef, Puppet, Pulumi
+
+---
+<!-- _class: outline-->
+# 開発者が知っておくべきトピック集<br><sub>－テスト編－</sub>
+<div class="corner-triangle"><div class="corner-triangle-text"></div></div>
+
+DUMMY
+
+---
+# テストを先に書く開発スタイル
 ## TDD <sub>- Test driven development, テスト駆動開発</sub>
 1. まずはテストを書く
 2. テストが通るようにプログラムを作る
@@ -326,25 +423,24 @@ def sort(arr):
 ```
 
 ---
-# _Clean code that works_
+# _"Clean code that works"_
 ## TDDのキモ
 動くコードと良いコードを分けて考える
 分割統治の考え
 
-まずは動くコードを作る
-動いたら良くする
+step1. まずは動くコードを作る
+step2. 動いたら良くする
 
 ```
-                         ｜
                          ｜     ★
    Clean                 ｜    step2
                          ｜
           －－－－－－－－－－－－－－－－－－－
-                         ｜      ↑
-   Dirty         ☆   →  ｜      ★
+                         ｜     ↑
+   Dirty         ☆   →  ｜     ★
                step0     ｜    step1
-                         ｜
-           Doesn't work        work
+
+           Doesn't work        Work
 ```
 
 
@@ -364,80 +460,15 @@ def sort(arr):
 　- 4つのサブ課題, 各課題にテスト20個程度
 
 学生は仕様に従いテストが通るように実装する
-
 全テストが通れば課題達成
 
 ## Pros
 TDD･テストの経験を得られる
 TDD･テストの恩恵を自然に受けられる
+　- 機能の自動的な検証
+　- リファクタリング支援
 
 教員の手間が減る
-
----
-# バグを直す前にテストを落とす
-## 予期せぬバグが起きた場合：
-1. バグが発生する条件･状況を探す
-
-```java
-sort([3,1,2,-5]);
-→ [1,2,3,-5]
-```
-
-
-2. その条件･状況をテストに起こす
-プログラムの正しい振る舞いを定義 & 自動検証
-```java
-@Test public void testNegative() {
-  List l = sort([3,1,2,-5]);
-  assertThat(l).equalTo([-5,1,2,3]);
-}
-```
-
-3. そのテストが通るようにバグを直す
-
-常にテストとソースを同時に直さない
-
-
-
----
-# バグ報告もテストと同時に
-## バグ報告に書くべき項目
-バグの概要
-環境
-バグの再現方法 ★
-期待する振る舞い ★
-実際の振る舞い ★
-
-```java
-@Test public void testNegative() {
-  List l = sort([3,1,2,-5]);
-  assertThat(l).equalTo([-5,1,2,3]);
-}
-```
-
-## 下手な文章よりも役立つ
-機械解読可能＝客観的･再現可能
-
-
----
-# 何でもソースコードにしよう
-<div class="corner-triangle"><div class="corner-triangle-text">雑談</div></div>
-
-## インストール手順のコード化
-※Home brewのインストールスクリプト
-```
-$ /bin/bash -c "$(curl -fsSL https://raw.git../install.sh)"
-```
-
-## ビルド方法･依存解決のコード化
-Gradle, Bazel
-`requirements.txt` + `pip install`
-
-## 仮想環境のコード化
-Docker
-
-## インフラ環境のコード化 (IaC)
-Chef, Puppet, Pulumi
 
 
 ---
@@ -452,18 +483,25 @@ DUMMY
 
 > Program testing can be used to show the presence of bugs, but never to show their absence
 
-> テストはバグが存在することを示せるが，
+> テストはバグが存在することを示せるが
 バグがないことは示せない
 
-<sub>Edsger W. Dijkstra</sub>
+<sub>E.W. Dijkstra</sub>
 
 ---
 # テストは証明ではない
+## 全組み合わせのテストは不可能
+`sort(arr)` のパラメタの組み合わせは無限
+`isPrime(int n)`でも`INT_MAX` (42億) の可能性がある
+
+## テストは無料ではない
+大きなシステムの全テストは1日かかる
+
 経済
 
 
 ---
-# <!--fit-->プログラムの正しさの証明？
+# プログラムの正しさの証明？
 ## 形式手法
 <div class="corner-triangle"><div class="corner-triangle-text">雑談</div></div>
 
@@ -471,7 +509,7 @@ DUMMY
 システム全体を数学的に表現することで検証する
 
 ![](fig/paper-formal.png)
-<sub>E.M. Clarke et al, ACM Computing Surveys 1996.</sub>
+<subb>E.M. Clarke et al, ACM Computing Surveys 1996.</subb>
 
 ミッションクリティカル分野で利用されている
 航空システム･医療等
@@ -487,12 +525,49 @@ DUMMY
 ---
 # テストの経済学と心理学
 
+---
+# 良いテスト
+## 良いテストとは？
+バグの検出能力が高い (≒ 網羅率が高い)
+読みやすい･保守しやすい
+
+## 単純であればあるほどよい
+
+
+分岐`if` `for`を極力使わない
+テスト自体のバグを避けるため
+繰り返してもOK, DRYでなくても良い
+
+仕様や利用方法という側面もある
+
+1テストケース＝1シナリオ
+
+---
+関数化
+
+---
+# 良いプログラムと良いテスト
+![](image.png)
+
+---
+parametrized test
 
 
 ---
-# 手でやらない
+# 回帰バグ
+## 昔のバグが再度現れる現象
+「レグレッションがおきた」
+「デグレした」
 
-## 手でやるべき状況もある
+プログラム変更時に発生した意図せぬ別の問題
+バグを直したら別のバグが出てくる
+
+## テストは回帰バグの特効薬
+バグ修正時に必ず対応するテストを作る
+プログラム変更時に常にテストを回す
 
 ---
-# リファクタリング
+# テストスメル
+
+
+# CI/CD

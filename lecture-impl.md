@@ -35,7 +35,7 @@ B3授業 (演習D･実験B) の経験から考える
 <span class="xisabled">・コメントはない方が良い</span>
 <span class="xisabled">・動くの先にある良いプログラム</span>
 <span class="xisabled">・良いプログラムとは？</span>
-<span class="xisabled">・_Don't call us, we'll call you_</span>
+<span class="xisabled">・_"Don't call us, we'll call you"_</span>
 <span class="xisabled">・goto不要論からの学び</span>
 <span class="xisabled">・できないことを増やす</span>
 <span class="xisabled">・Complex vs Complicated</span>
@@ -49,7 +49,7 @@ Software Engineering Body of Knowledge
 IEEEが作っているSEの知識体系
 
 知識や概念の「体系化･構造化」が目的
-例：生物分類 `脊索動物門 > 哺乳綱 > サル目 > サル科 > ...`
+例：`節足動物門 > 昆虫綱 > コウチュウ目 > カブトムシ亜目 ...`
 
 内容は薄くて広い
 構造付きの辞書とみなすと良い
@@ -133,7 +133,7 @@ Data Management BOK
 <span class="xisabled">・コメントはない方が良い</span>
 <span class="disabled">・動くの先にある良いプログラム</span>
 <span class="disabled">・良いプログラムとは？</span>
-<span class="disabled">・_Don't call us, we'll call you_</span>
+<span class="disabled">・_"Don't call us, we'll call you"_</span>
 <span class="disabled">・goto不要論からの学び</span>
 <span class="disabled">・できないことを増やす</span>
 <span class="disabled">・Complex vs Complicated</span>
@@ -307,7 +307,7 @@ Pattern.compile("^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
 <span class="disabled">・コメントはない方が良い</span>
 <span class="xisabled">・動くの先にある良いプログラム</span>
 <span class="xisabled">・良いプログラムとは？</span>
-<span class="disabled">・_Don't call us, we'll call you_</span>
+<span class="disabled">・_"Don't call us, we'll call you"_</span>
 <span class="disabled">・goto不要論からの学び</span>
 <span class="disabled">・できないことを増やす</span>
 <span class="disabled">・Complex vs Complicated</span>
@@ -403,7 +403,7 @@ Web検索による断片的知識でも怪しい
 <span class="disabled">・コメントはない方が良い</span>
 <span class="disabled">・動くの先にある良いプログラム</span>
 <span class="disabled">・良いプログラムとは？</span>
-<span class="xisabled">・_Don't call us, we'll call you_</span>
+<span class="xisabled">・_"Don't call us, we'll call you"_</span>
 <span class="xisabled">・goto不要論からの学び</span>
 <span class="xisabled">・できないことを増やす</span>
 <span class="disabled">・Complex vs Complicated</span>
@@ -411,7 +411,7 @@ Web検索による断片的知識でも怪しい
 <span class="disabled">・DRY･KISS･YAGNI</span>
 
 ---
-# _Don't call us, we'll call you_
+# _"Don't call us, we'll call you"_
 ## 制御の反転･ハリウッド原則
 制御の主となるmain()を自分で書かない
 フレームワークはこの考えに基づく
@@ -622,7 +622,7 @@ let mut y = 5; // 可変
 <span class="disabled">・コメントはない方が良い</span>
 <span class="disabled">・動くの先にある良いプログラム</span>
 <span class="disabled">・良いプログラムとは？</span>
-<span class="disabled">・_Don't call us, we'll call you_</span>
+<span class="disabled">・_"Don't call us, we'll call you"_</span>
 <span class="disabled">・goto不要論からの学び</span>
 <span class="disabled">・できないことを増やす</span>
 <span class="xisabled">・Complex vs Complicated</span>
@@ -759,7 +759,7 @@ public class Y implements X {
 <span class="xisabled">・コメントはない方が良い</span>
 <span class="xisabled">・動くの先にある良いプログラム</span>
 <span class="xisabled">・良いプログラムとは？</span>
-<span class="xisabled">・_Don't call us, we'll call you_</span>
+<span class="xisabled">・_"Don't call us, we'll call you"_</span>
 <span class="xisabled">・goto不要論からの学び</span>
 <span class="xisabled">・できないことを増やす</span>
 <span class="xisabled">・Complex vs Complicated</span>
