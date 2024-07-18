@@ -75,13 +75,15 @@ title: SW設計論 #15
 
 ・リファクタリングのためのテスト
 ・バグ修正のためのテスト
+・回帰バグ対策としてのテスト
 
-・良いテスト
+・演習
+
 ・テストを先に書く開発スタイル
 ・_"Clean code that works"_
 
+・良いテスト
 ・テストは証明ではない
-・テストはユーザ第1号である
 
 <span class="xisabled">・SWEBOK</span>
 
@@ -395,77 +397,19 @@ Docker
 Chef, Puppet, Pulumi
 
 ---
-<!-- _class: outline-->
-# 開発者が知っておくべきトピック集<br><sub>－テスト編－</sub>
-<div class="corner-triangle"><div class="corner-triangle-text"></div></div>
+# 回帰バグ対策としてのテスト
+## 回帰バグ
+昔のバグが再度現れる現象
 
-DUMMY
+プログラム変更時に発生した意図せぬ別の問題
+バグを直したら別のバグが出てくる
 
----
-# 良いテスト
-## 良いテストとは？
-バグの検出能力が高い (≒ 網羅率が高い)
-読みやすい･保守しやすい ★
+「レグレッションがおきた」
+「デグレした」
 
-## 単純であればあるほどよい
-分岐`if` `for`を極力使わない
-テスト自体のバグを避けるため
-繰り返してもOK, DRYでなくても良い
-関数化も最低限に
-
-## 1テストケース＝1シナリオ
-仕様や利用方法という側面もある
-たくさんのことをしない
-
----
-# 良いプログラムとは？
-<div class="corner-triangle"><div class="corner-triangle-text">再掲</div></div>
-
-## 信頼性･効率性 <sub>(実行的側面の良さ)</sub>
-目的を満たすか？バグがないか？
-計算リソースの無駄がないか？
-
-## 可読性･保守性
-読みやすいか？意図を汲み取れるか？
-
-## 拡張性
-拡張時の作業は書き換えか？追加か？
-
-## <u>テスタビリティ</U>
-`main()` vs `main()`+`sub1()`+`sub2()`+`sub3()`
-
-
----
-# Complex vs Complicated
-<div class="corner-triangle"><div class="corner-triangle-text">再掲</div></div>
-
-<br>
-<brr>
-
-## ![](https://www.gilkisongroup.com/wp-content/uploads/2019/01/Complicated-or-Complex-2-1200x565.png)
-<subb>https://www.gilkisongroup.com/investing-complicated-or-complex/</subb>
-
-
----
-# 良いプログラムと良いテスト
-## テストが楽なプログラムを作ろう
-うまく分割統治すればするほどテストが楽
-テストが楽なほど実装も楽
-
-分割統治されていない何でもできるメソッド
-```java
-HugeObject doALotOfThings(param1, param2, param3, ...) {
-```
-分割統治された単一のことしかできないメソッド
-```java
-TinyObject doTinyThing(param1) {
-```
-
-## 良いプログラム ≒ テストしやすいプログラム
-責務が明確である, 具体的で明確な名前を持つ
-副作用がない,  状態を持たない, 決定的である
-
-関数型言語はテストしやすい
+## テストは回帰バグの特効薬
+バグ修正時に必ず対応するテストを作る
+プログラム変更時に常にテストを回す
 
 
 ---
@@ -611,6 +555,13 @@ IF = `bool isSemVer(s)`　仕様 = `EBNF`
 DUMMY
 
 ---
+<!-- _class: outline-->
+# 開発者が知っておくべきトピック集<br><sub>－テスト編－</sub>
+<div class="corner-triangle"><div class="corner-triangle-text"></div></div>
+
+DUMMY
+
+---
 # テストを先に書く開発スタイル
 ## TDD <sub>- Test driven development, テスト駆動開発</sub>
 1. まずはテストを書く
@@ -690,6 +641,73 @@ TDD･テストの恩恵を自然に受けられる
 DUMMY
 
 ---
+# 良いテスト
+## 良いテストとは？
+バグの検出能力が高い (≒ 網羅率が高い)
+読みやすい･保守しやすい ★
+
+## 単純であればあるほどよい
+分岐`if` `for`を極力使わない
+テスト自体のバグを避けるため
+繰り返してもOK, DRYでなくても良い
+関数化も最低限に
+
+## 1テストケース＝1シナリオ
+仕様や利用方法という側面もある
+たくさんのことをしない
+
+---
+# 良いプログラムとは？
+<div class="corner-triangle"><div class="corner-triangle-text">再掲</div></div>
+
+## 信頼性･効率性 <sub>(実行的側面の良さ)</sub>
+目的を満たすか？バグがないか？
+計算リソースの無駄がないか？
+
+## 可読性･保守性
+読みやすいか？意図を汲み取れるか？
+
+## 拡張性
+拡張時の作業は書き換えか？追加か？
+
+## <u>テスタビリティ</U>
+`main()` vs `main()`+`sub1()`+`sub2()`+`sub3()`
+
+
+---
+# Complex vs Complicated
+<div class="corner-triangle"><div class="corner-triangle-text">再掲</div></div>
+
+<br>
+<brr>
+
+## ![](https://www.gilkisongroup.com/wp-content/uploads/2019/01/Complicated-or-Complex-2-1200x565.png)
+<subb>https://www.gilkisongroup.com/investing-complicated-or-complex/</subb>
+
+
+---
+# 良いプログラムと良いテスト
+## テストが楽なプログラムを作ろう
+うまく分割統治すればするほどテストが楽
+テストが楽なほど実装も楽
+
+分割統治されていない何でもできるメソッド
+```java
+HugeObject doALotOfThings(param1, param2, param3, ...) {
+```
+分割統治された単一のことしかできないメソッド
+```java
+TinyObject doTinyThing(param1) {
+```
+
+## 良いプログラム ≒ テストしやすいプログラム
+責務が明確である, 具体的で明確な名前を持つ
+副作用がない,  状態を持たない, 決定的である
+
+関数型言語はテストしやすい
+
+
+---
 <br><br><br><br>
 
 > Program testing can be used to show the presence of bugs, but never to show their absence
@@ -708,11 +726,13 @@ DUMMY
 ## テストは無料ではない
 大きなシステムの全テストは1日かかる
 
-経済
+## テストの経済学と心理学
+経済的なテストを作る
+　- 効率の良さのこと
 
----
-# テストの経済学と心理学
-
+開発者の心理を考えてテストを作る
+　- 開発者がミスしやすそうな部分を考える
+　- 開発経験があるほど良いテストを作りやすい
 
 ---
 # プログラムの正しさの証明？
@@ -731,27 +751,10 @@ DUMMY
 形式手法と比べるとテストは手軽で安価
 
 
----
-# サボるために頑張る
-投資
-
 
 ---
 parametrized test
 
-
----
-# 回帰バグ
-## 昔のバグが再度現れる現象
-「レグレッションがおきた」
-「デグレした」
-
-プログラム変更時に発生した意図せぬ別の問題
-バグを直したら別のバグが出てくる
-
-## テストは回帰バグの特効薬
-バグ修正時に必ず対応するテストを作る
-プログラム変更時に常にテストを回す
 
 ---
 # テストスメル
