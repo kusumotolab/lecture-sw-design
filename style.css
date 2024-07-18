@@ -172,6 +172,19 @@ div.corner-triangle .corner-triangle-text a {
 
 }
 
+
+section.enshu {
+    background-color: hsl(27, 54%, 95%);
+}
+section.enshu p,
+section.enshu h1,
+section.enshu h2,
+section.enshu h3,
+section.enshu ul,
+section.enshu li {
+    color: hsl(23, 97%, 15%);
+}
+
 section.outline {
     background-color: var(--color-font-sub);
 }

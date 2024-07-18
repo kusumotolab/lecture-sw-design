@@ -76,6 +76,7 @@ title: SW設計論 #15
 ・リファクタリングのためのテスト
 ・バグ修正のためのテスト
 
+・良いテスト
 ・テストを先に書く開発スタイル
 ・_"Clean code that works"_
 
@@ -121,7 +122,7 @@ title: SW設計論 #15
 機能：単体テスト, 結合テスト, システムテスト
 非機能：パフォーマンステスト, 負荷テスト, ..
 
-
+## 今日は自動テストに着目
 ---
 # テスト作成の流れ
 
@@ -143,10 +144,11 @@ List sort(List l) {
 }
 ```
 
-要求とIFが決まればテストは作成できる
-　- 要求 + IF = 実装
-　- 要求 + IF = テスト
-
+仕様とIFが決まればテストは作成できる
+```
+仕様 + IF ⇒ 実装
+仕様 + IF ⇒ テスト
+```
 
 ---
 # 例：実験スクリプトの場合
@@ -354,11 +356,11 @@ sort([3,1,2,-5]);
 ---
 # バグ報告もテストと同時に
 ## バグ報告に書くべき項目
-- バグの概要
-- 環境
-- バグの再現方法 ★
-- 期待する振る舞い ★
-- 実際の振る舞い ★
+バグの概要
+環境
+バグの再現方法 ★
+期待する振る舞い ★
+実際の振る舞い ★
 
 ```java
 @Test public void testNegative() {
@@ -391,6 +393,215 @@ Docker
 
 ## インフラ環境のコード化 (IaC)
 Chef, Puppet, Pulumi
+
+---
+<!-- _class: outline-->
+# 開発者が知っておくべきトピック集<br><sub>－テスト編－</sub>
+<div class="corner-triangle"><div class="corner-triangle-text"></div></div>
+
+DUMMY
+
+---
+# 良いテスト
+## 良いテストとは？
+バグの検出能力が高い (≒ 網羅率が高い)
+読みやすい･保守しやすい ★
+
+## 単純であればあるほどよい
+分岐`if` `for`を極力使わない
+テスト自体のバグを避けるため
+繰り返してもOK, DRYでなくても良い
+関数化も最低限に
+
+## 1テストケース＝1シナリオ
+仕様や利用方法という側面もある
+たくさんのことをしない
+
+---
+# 良いプログラムとは？
+<div class="corner-triangle"><div class="corner-triangle-text">再掲</div></div>
+
+## 信頼性･効率性 <sub>(実行的側面の良さ)</sub>
+目的を満たすか？バグがないか？
+計算リソースの無駄がないか？
+
+## 可読性･保守性
+読みやすいか？意図を汲み取れるか？
+
+## 拡張性
+拡張時の作業は書き換えか？追加か？
+
+## <u>テスタビリティ</U>
+`main()` vs `main()`+`sub1()`+`sub2()`+`sub3()`
+
+
+---
+# Complex vs Complicated
+<div class="corner-triangle"><div class="corner-triangle-text">再掲</div></div>
+
+<br>
+<brr>
+
+## ![](https://www.gilkisongroup.com/wp-content/uploads/2019/01/Complicated-or-Complex-2-1200x565.png)
+<subb>https://www.gilkisongroup.com/investing-complicated-or-complex/</subb>
+
+
+---
+# 良いプログラムと良いテスト
+## テストが楽なプログラムを作ろう
+うまく分割統治すればするほどテストが楽
+テストが楽なほど実装も楽
+
+分割統治されていない何でもできるメソッド
+```java
+HugeObject doALotOfThings(param1, param2, param3, ...) {
+```
+分割統治された単一のことしかできないメソッド
+```java
+TinyObject doTinyThing(param1) {
+```
+
+## 良いプログラム ≒ テストしやすいプログラム
+責務が明確である, 具体的で明確な名前を持つ
+副作用がない,  状態を持たない, 決定的である
+
+関数型言語はテストしやすい
+
+
+---
+<!-- _class: outline-->
+# 開発者が知っておくべきトピック集<br><sub>－テスト編－</sub>
+<div class="corner-triangle"><div class="corner-triangle-text"></div></div>
+
+DUMMY
+
+---
+<!-- _class: enshu-->
+# 演習 <sub>(10m)</sub>
+## 以下のプログラムのテストを作成せよ
+```py
+bool isSemVer(s):
+  """文字列sがsemverの書式に従っているかを確認する
+  semver = majorVer.minorVer.patchVer
+  """
+```
+
+テストケース例
+```py
+assert isSemVer('1.2.3')  == True
+assert isSemVer('1.2.99') == True
+
+assert isSemVer('1.2.')  == False
+assert isSemVer('1.2.a') == False
+```
+
+## 提出方法
+テストのテキストをCLEに提出すること
+答えがある問題ではないので自由に考えること
+
+---
+<!-- _class: enshu-->
+# そもそも正しいsemverとは？
+
+```
+# Backus–Naur Form Grammar for Valid SemVer Versions
+
+<valid semver> ::= <version core>
+                 | <version core> "-" <pre-release>
+                 | <version core> "+" <build>
+                 | <version core> "-" <pre-release> "+" <build>
+
+<version core> ::= <major> "." <minor> "." <patch>
+
+<major> ::= <numeric identifier>
+
+<minor> ::= <numeric identifier>
+
+<patch> ::= <numeric identifier>
+
+<numeric identifier> ::= "0"
+                       | <positive digit>
+                       | <positive digit> <digits>
+
+<positive digit> ::= "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+
+<digit> ::= "0" | <positive digit>
+```
+<subb>https://semver.org/</subb>
+
+---
+<!-- _class: enshu-->
+## テストケースの一例
+valid
+```
+1.2.3
+1.2.99
+1.2.0
+0.0.0
+10.20.30
+99999999999999999.99999999999999999.99999999999999999
+```
+
+invalid
+```
+1
+1.2
+1.2.
+1.2.3.
+1..3
+aaa
+1.2.a
+1.01.1
+1. 2.3
+1.-2.3
+```
+
+---
+<!-- _class: enshu-->
+## もっと真面目なテストケース
+valid
+```
+1.1.2-prerelease+meta
+1.1.2+meta
+1.1.2+meta-valid
+1.0.0-alpha
+1.0.0-beta
+1.0.0-alpha.beta
+1.0.0-alpha.beta.1
+1.0.0-alpha.1
+1.0.0-alpha0.valid
+1.0.0-alpha.0valid
+1.0.0-alpha-a.b-c-somethinglong+build.1-aef.1-its-okay
+1.0.0-rc.1+build.1
+2.0.0-rc.1+build.123
+1.2.3-beta
+10.2.3-DEV-SNAPSHOT
+1.2.3-SNAPSHOT-123
+```
+<subb>https://github.com/semver/semver/issues/833</subb>
+
+---
+<!-- _class: enshu-->
+# テスト ≒ 仕様
+## 仕様が決まらないとテストは作れない
+```
+仕様 + IF ⇒ 実装
+仕様 + IF ⇒ テスト
+```
+
+IF = `bool isSemVer(s)`　仕様 = `EBNF`
+
+## テストは自動検証可能な仕様である
+コード化された仕様
+
+## テストがあると実装が楽 <sub>(ゴールがある)</sub>
+```
+実装前の状態: -----------------------
+まず軽く実装: oooooooo------oo-------
+少し修正する: oooooooooooo--oo-----oo
+もう少し修正: oooooooooooooooooooo-oo
+完成！！！！: ooooooooooooooooooooooo
+```
 
 ---
 <!-- _class: outline-->
@@ -435,9 +646,9 @@ step2. 動いたら良くする
                          ｜     ★
    Clean                 ｜    step2
                          ｜
-          －－－－－－－－－－－－－－－－－－－
-                         ｜     ↑
-   Dirty         ☆   →  ｜     ★
+          －－－－－－－－－－－－ ↑ －－－－－－
+                         ｜     
+   Dirty         ☆       →     ★
                step0     ｜    step1
 
            Doesn't work        Work
@@ -499,6 +710,9 @@ DUMMY
 
 経済
 
+---
+# テストの経済学と心理学
+
 
 ---
 # プログラムの正しさの証明？
@@ -523,33 +737,6 @@ DUMMY
 
 
 ---
-# テストの経済学と心理学
-
----
-# 良いテスト
-## 良いテストとは？
-バグの検出能力が高い (≒ 網羅率が高い)
-読みやすい･保守しやすい
-
-## 単純であればあるほどよい
-
-
-分岐`if` `for`を極力使わない
-テスト自体のバグを避けるため
-繰り返してもOK, DRYでなくても良い
-
-仕様や利用方法という側面もある
-
-1テストケース＝1シナリオ
-
----
-関数化
-
----
-# 良いプログラムと良いテスト
-![](image.png)
-
----
 parametrized test
 
 
@@ -571,3 +758,6 @@ parametrized test
 
 
 # CI/CD
+
+
+# スタブ・モック

@@ -784,6 +784,7 @@ public class Y implements X {
 相手がどう感じるかを類推する
 
 ---
+<!-- _class: enshu-->
 # 演習 <sub>(10m)</sub>
 ## 自身のプログラムをコードレビューせよ
 題材はなんでもOK
