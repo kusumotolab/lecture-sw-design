@@ -15,13 +15,17 @@ title: SW設計論 #15
 <div class="corner-triangle"><div class="corner-triangle-text">前回</div></div>
 
 <span class="xisabled">・SWEBOK</span>
+
 <span class="xisabled">・良い名前をつける</span>
 <span class="xisabled">・コメントはない方が良い</span>
+
 <span class="xisabled">・動くの先にある良いプログラム</span>
 <span class="xisabled">・良いプログラムとは？</span>
+
 <span class="xisabled">・_Don't call us, we'll call you_</span>
 <span class="xisabled">・goto不要論からの学び</span>
 <span class="xisabled">・できないことを増やす</span>
+
 <span class="xisabled">・Complex vs Complicated</span>
 <span class="xisabled">・分割統治</span>
 <span class="xisabled">・DRY･KISS･YAGNI</span>
@@ -54,14 +58,14 @@ title: SW設計論 #15
 ## プログラミングと似た面白さ
 パズル的な面白さ
 自動化の気持ちよさ
-実装ほど難しくはないがやはり奥深い
+導入が簡単で奥深い
 
 ## ものすごく役立つ
 プログラミングを助ける･楽にする技術
 実践的で応用の幅が広い
 実装ほど難しくない点もプラス
 
-## 理論と実践の境界
+## 理論的側面と実践的側面が共存
 様々なセオリーが存在する
 勉強するほどうまくなる
 
@@ -70,22 +74,21 @@ title: SW設計論 #15
 # 開発者が知っておくべきトピック集<br><sub>－テスト編－</sub>
 <div class="corner-triangle"><div class="corner-triangle-text"></div></div>
 
-・SWテストの基本
-・手動テストは危険
+<span class="xisabled">・SWテストの基本</span>
 
-・リファクタリングのためのテスト
-・バグ修正のためのテスト
-・回帰バグ対策としてのテスト
+<span class="xisabled">・リファクタリングのためのテスト</span>
+<span class="xisabled">・バグ修正のためのテスト</span>
+<span class="xisabled">・回帰バグ対策としてのテスト</span>
 
-・演習
+<span class="xisabled">・演習</span>
 
-・テストを先に書く開発スタイル
-・_"Clean code that works"_
+<span class="xisabled">・テストを先に書く</span>
+<span class="xisabled">・_"Clean code that works"_</span>
 
-・良いテスト
-・テストは証明ではない
+<span class="xisabled">・良いテスト</span>
+<span class="xisabled">・テストは証明ではない</span>
 
-<span class="xisabled">・SWEBOK</span>
+<span class="xisabled">・テストのテクニック</span>
 
 ---
 # SWテスト
@@ -210,7 +213,7 @@ if __name__ == '__main__':
     print("ng")
 ```
 
-ここまでやるならテストFWを使おう
+## ここまでやるならテストFWを使おう
 テストの<u>共通処理</u>をFWに任す
 　- テストケースの回収
 　- 検証 `assert()`
@@ -337,7 +340,7 @@ def sort(arr):
 
 ```java
 sort([3,1,2,-5]);
-   → [1,2,3,-5]
+   → [1,2,3,-5]  // bug!!
 ```
 
 
@@ -401,7 +404,7 @@ Chef, Puppet, Pulumi
 ## 回帰バグ
 昔のバグが再度現れる現象
 
-プログラム変更時に発生した意図せぬ別の問題
+プログラム変更時に発生した予期せぬ別の問題
 バグを直したら別のバグが出てくる
 
 「レグレッションがおきた」
@@ -424,7 +427,7 @@ DUMMY
 # 演習 <sub>(10m)</sub>
 ## 以下のプログラムのテストを作成せよ
 ```py
-bool isSemVer(s):
+def isSemVer(s: str) -> bool:
   """文字列sがsemverの書式に従っているかを確認する
   semver = majorVer.minorVer.patchVer
   """
@@ -447,35 +450,30 @@ assert isSemVer('1.2.a') == False
 <!-- _class: enshu-->
 # そもそも正しいsemverとは？
 
-```
+```python
 # Backus–Naur Form Grammar for Valid SemVer Versions
-
 <valid semver> ::= <version core>
-                 | <version core> "-" <pre-release>
-                 | <version core> "+" <build>
-                 | <version core> "-" <pre-release> "+" <build>
+          | <version core> "-" <pre-release>
+          | <version core> "+" <build>
+          | <version core> "-" <pre-release> "+" <build>
 
 <version core> ::= <major> "." <minor> "." <patch>
 
 <major> ::= <numeric identifier>
-
 <minor> ::= <numeric identifier>
-
 <patch> ::= <numeric identifier>
 
 <numeric identifier> ::= "0"
-                       | <positive digit>
-                       | <positive digit> <digits>
-
-<positive digit> ::= "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
-
+          | <positive digit>
+          | <positive digit> <digits>
+<positive digit> ::= "1" | "2" | "3" | .. | "9"
 <digit> ::= "0" | <positive digit>
 ```
 <subb>https://semver.org/</subb>
 
 ---
 <!-- _class: enshu-->
-## テストケースの一例
+## 模範解答例
 valid
 ```
 1.2.3
@@ -506,8 +504,6 @@ aaa
 valid
 ```
 1.1.2-prerelease+meta
-1.1.2+meta
-1.1.2+meta-valid
 1.0.0-alpha
 1.0.0-beta
 1.0.0-alpha.beta
@@ -521,8 +517,10 @@ valid
 1.2.3-beta
 10.2.3-DEV-SNAPSHOT
 1.2.3-SNAPSHOT-123
+2.0.0+build.1848
+2.0.1-alpha.1227
 ```
-<subb>https://github.com/semver/semver/issues/833</subb>
+<subb>https://github.com/semver/semver/issues/833#issuecomment-1186845563</subb>
 
 ---
 <!-- _class: enshu-->
@@ -538,14 +536,15 @@ IF = `bool isSemVer(s)`　仕様 = `EBNF`
 ## テストは自動検証可能な仕様である
 コード化された仕様
 
-## テストがあると実装が楽 <sub>(ゴールがある)</sub>
+## テストがあると実装が楽
+テストがゴールになる
 ```
-実装前の状態: -----------------------
-まず軽く実装: oooooooo------oo-------
-少し修正する: oooooooooooo--oo-----oo
-もう少し修正: oooooooooooooooooooo-oo
-完成！！！！: ooooooooooooooooooooooo
+実装前の状態: -----------------------    0%
+まず軽く実装: oooooooo------oo-------   50%
+少し修正する: oooooooooooooooooooo-oo   98%
+完成！！！！: ooooooooooooooooooooooo  100%
 ```
+
 
 ---
 <!-- _class: outline-->
@@ -555,14 +554,7 @@ IF = `bool isSemVer(s)`　仕様 = `EBNF`
 DUMMY
 
 ---
-<!-- _class: outline-->
-# 開発者が知っておくべきトピック集<br><sub>－テスト編－</sub>
-<div class="corner-triangle"><div class="corner-triangle-text"></div></div>
-
-DUMMY
-
----
-# テストを先に書く開発スタイル
+# テストを先に書く
 ## TDD <sub>- Test driven development, テスト駆動開発</sub>
 1. まずはテストを書く
 2. テストが通るようにプログラムを作る
@@ -708,20 +700,21 @@ TinyObject doTinyThing(param1) {
 
 
 ---
-<br><br><br><br>
+<!-- _class: outline pd30-->
 
-> Program testing can be used to show the presence of bugs, but never to show their absence
+<br><br><br><br><br>
+<brr>
 
-> テストはバグが存在することを示せるが
-バグがないことは示せない
+_Program testing can be used to show the presence of bugs, but never to show their absence_
 
 <sub>E.W. Dijkstra</sub>
+
+![bg left:45%](https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Edsger_Wybe_Dijkstra.jpg/450px-Edsger_Wybe_Dijkstra.jpg)
 
 ---
 # テストは証明ではない
 ## 全組み合わせのテストは不可能
-`sort(arr)` のパラメタの組み合わせは無限
-`isPrime(int n)`でも`INT_MAX` (42億) の可能性がある
+`isSemVer(s)` のパラメタの組み合わせは無限
 
 ## テストは無料ではない
 大きなシステムの全テストは1日かかる
@@ -753,7 +746,33 @@ TinyObject doTinyThing(param1) {
 
 
 ---
-parametrized test
+# パラメタ化テスト
+テストをDRYにする手法
+
+non-DRYなテスト
+```py
+def test_semver_valid1():
+    assert isSemVer('1.2.3') == True
+def test_semver_valid2():
+    assert isSemVer('1.2.99') == True
+def test_semver_valid3():
+    assert isSemVer('1.2.0') == True
+```
+
+パラメタ化テスト
+```py
+@pytest.mark.parametrize('semver', [
+    '1.2.3'
+    '1.2.99'
+    '1.2.0'
+])
+def test_semver_valid(semver):
+    assert isSemVer(semver) == True
+```
+
+---
+# モック
+
 
 
 ---
