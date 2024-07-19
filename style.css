@@ -230,3 +230,6 @@ p:has(subb) {
     text-align: center;
     background: var(--color-font-main);
 }
+section.pd30 {
+    padding: 30px;
+}
