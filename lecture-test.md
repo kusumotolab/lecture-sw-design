@@ -90,6 +90,7 @@ title: SW設計論 #15
 
 <span class="xisabled">・テストのテクニック</span>
 
+
 ---
 # SWテスト
 
@@ -272,7 +273,22 @@ test_sort.py::test_sort3 PASSED                 [100%]
 # 開発者が知っておくべきトピック集<br><sub>－テスト編－</sub>
 <div class="corner-triangle"><div class="corner-triangle-text"></div></div>
 
-DUMMY
+<span class="disabled">・SWテストの基本</span>
+
+<span class="xisabled">・リファクタリングのためのテスト</span>
+<span class="xisabled">・バグ修正のためのテスト</span>
+<span class="xisabled">・回帰バグ対策としてのテスト</span>
+
+<span class="disabled">・演習</span>
+
+<span class="disabled">・テストを先に書く</span>
+<span class="disabled">・_"Clean code that works"_</span>
+
+<span class="disabled">・良いテスト</span>
+<span class="disabled">・テストは証明ではない</span>
+
+<span class="disabled">・テストのテクニック</span>
+
 
 ---
 # リファクタリング
@@ -420,7 +436,21 @@ Chef, Puppet, Pulumi
 # 開発者が知っておくべきトピック集<br><sub>－テスト編－</sub>
 <div class="corner-triangle"><div class="corner-triangle-text"></div></div>
 
-DUMMY
+<span class="disabled">・SWテストの基本</span>
+
+<span class="disabled">・リファクタリングのためのテスト</span>
+<span class="disabled">・バグ修正のためのテスト</span>
+<span class="disabled">・回帰バグ対策としてのテスト</span>
+
+<span class="xisabled">・演習</span>
+
+<span class="disabled">・テストを先に書く</span>
+<span class="disabled">・_"Clean code that works"_</span>
+
+<span class="disabled">・良いテスト</span>
+<span class="disabled">・テストは証明ではない</span>
+
+<span class="disabled">・テストのテクニック</span>
 
 ---
 <!-- _class: enshu-->
@@ -546,12 +576,28 @@ IF = `bool isSemVer(s)`　仕様 = `EBNF`
 ```
 
 
+
 ---
 <!-- _class: outline-->
 # 開発者が知っておくべきトピック集<br><sub>－テスト編－</sub>
 <div class="corner-triangle"><div class="corner-triangle-text"></div></div>
 
-DUMMY
+<span class="disabled">・SWテストの基本</span>
+
+<span class="disabled">・リファクタリングのためのテスト</span>
+<span class="disabled">・バグ修正のためのテスト</span>
+<span class="disabled">・回帰バグ対策としてのテスト</span>
+
+<span class="disabled">・演習</span>
+
+<span class="xisabled">・テストを先に書く</span>
+<span class="xisabled">・_"Clean code that works"_</span>
+
+<span class="disabled">・良いテスト</span>
+<span class="disabled">・テストは証明ではない</span>
+
+<span class="disabled">・テストのテクニック</span>
+
 
 ---
 # テストを先に書く
@@ -625,12 +671,28 @@ TDD･テストの恩恵を自然に受けられる
 教員の手間が減る
 
 
+
 ---
 <!-- _class: outline-->
 # 開発者が知っておくべきトピック集<br><sub>－テスト編－</sub>
 <div class="corner-triangle"><div class="corner-triangle-text"></div></div>
 
-DUMMY
+<span class="disabled">・SWテストの基本</span>
+
+<span class="disabled">・リファクタリングのためのテスト</span>
+<span class="disabled">・バグ修正のためのテスト</span>
+<span class="disabled">・回帰バグ対策としてのテスト</span>
+
+<span class="disabled">・演習</span>
+
+<span class="disabled">・テストを先に書く</span>
+<span class="disabled">・_"Clean code that works"_</span>
+
+<span class="xisabled">・良いテスト</span>
+<span class="xisabled">・テストは証明ではない</span>
+
+<span class="disabled">・テストのテクニック</span>
+
 
 ---
 # 良いテスト
@@ -744,6 +806,26 @@ _Program testing can be used to show the presence of bugs, but never to show the
 形式手法と比べるとテストは手軽で安価
 
 
+---
+<!-- _class: outline-->
+# 開発者が知っておくべきトピック集<br><sub>－テスト編－</sub>
+<div class="corner-triangle"><div class="corner-triangle-text"></div></div>
+
+<span class="disabled">・SWテストの基本</span>
+
+<span class="disabled">・リファクタリングのためのテスト</span>
+<span class="disabled">・バグ修正のためのテスト</span>
+<span class="disabled">・回帰バグ対策としてのテスト</span>
+
+<span class="disabled">・演習</span>
+
+<span class="disabled">・テストを先に書く</span>
+<span class="disabled">・_"Clean code that works"_</span>
+
+<span class="disabled">・良いテスト</span>
+<span class="disabled">・テストは証明ではない</span>
+
+<span class="xisabled">・テストのテクニック</span>
 
 ---
 # パラメタ化テスト
@@ -762,18 +844,143 @@ def test_semver_valid3():
 パラメタ化テスト
 ```py
 @pytest.mark.parametrize('semver', [
-    '1.2.3'
-    '1.2.99'
-    '1.2.0'
-])
+    '1.2.3',
+    '1.2.99',
+    '1.2.0'])
 def test_semver_valid(semver):
     assert isSemVer(semver) == True
 ```
 
 ---
 # モック
+プログラムの依存先を置き換える手法
+テストダブルの一種 <sub>(スタブ, スパイ, フェイク, ダミー)</sub>
+
+## 題材：じゃんけんゲーム
+
+ランダムな手を出すプレイヤ
+
+```py
+class RandomPlayer():
+    def next_hand(self):
+        r = random.random()
+        if r > 0.66:
+            return ROCK
+        elif r > 0.33:
+            return PAPER
+        else:
+            return SCISSORS
+```
+
+---
+## 非決定的なプログラムをどうテストする？
+```py
+def test_random_player():
+    player = RandomPlayer()
+    hand = player.next_hand()
+    assert # ?????????
+```
 
 
+## 非決定的な部分だけをモック (模倣) する
+```py
+def test_random_player(mocker):
+    mocker.patch('random.random', return_value=0.7)
+    player = RandomPlayer()
+    hand = player.next_hand()
+    assert hand == ROCK
+```
+
+## モック以外の乱数対策
+シードを固定する (可読性に難あり)
+統計的にテストする (コスト･安定性に難あり)
+乱数に依存性を注入 (テストのためだけの実装)
+
+
+---
+## じゃんけんゲームのゲームエンジン
+```py
+class Game():
+    def play(self, player1, player2):
+        for _ in range(10):
+            hand1 = player1.next_hand()
+            hand2 = player2.next_hand()
+            winlose = compare(hand1, hand2)
+            if winlose != DRAW:
+                return winlose
+        return DRAW
+```
+
+## どうテストする？
+```py
+def test_game():
+    player1 = RandomPlayer()
+    player2 = RandomPlayer()
+    game = Game()
+    winlose = game.play(player1, player2)
+    assert # ???????
+```
+
+---
+## モックありテスト
+```py
+def test_game():
+    player1 = RandomPlayer()
+    player2 = RandomPlayer()
+    player1.next_hand = MagicMock(return_value=ROCK)
+    player2.next_hand = MagicMock(return_value=SCISSORS)
+    game = Game()
+    winlose = game.play(player1, player2)
+    assert winlose == LEFT_WINS
+```
+
+## モックありテスト <sub>(引き分けの確認)</sub>
+```py
+def test_game_draw():
+    player1 = RandomPlayer()
+    player2 = RandomPlayer()
+    player1.next_hand = MagicMock(return_value=ROCK)
+    player2.next_hand = MagicMock(return_value=ROCK)
+    game = Game()
+    winlose = game.play(player1, player2)
+    assert winlose == DRAW
+```
+---
+# モックまとめ
+## モックを使うべき状況
+モック先の制御が難しい <sub>(非決定的)</sub>
+モック先の処理コストが高い <sub>(高計算, DB依存, NW依存)</sub>
+モック先が十分にテストされている
+
+## やりすぎ注意
+実装をねじ曲げる手法ではある
+なんでもできる <sub>(goto文と同じ)</sub>
+
+やりすぎると：
+　- テストの可読性が下がる
+　- テスト自体のバグにつながる
+　- プロダクトのバグの見逃しにつながる
+
+---
+<!-- _class: outline-->
+# 開発者が知っておくべきトピック集<br><sub>－テスト編－</sub>
+<div class="corner-triangle"><div class="corner-triangle-text"></div></div>
+
+<span class="xisabled">・SWテストの基本</span>
+
+<span class="xisabled">・リファクタリングのためのテスト</span>
+<span class="xisabled">・バグ修正のためのテスト</span>
+<span class="xisabled">・回帰バグ対策としてのテスト</span>
+
+<span class="xisabled">・演習</span>
+
+<span class="xisabled">・テストを先に書く</span>
+<span class="xisabled">・_"Clean code that works"_</span>
+
+<span class="xisabled">・良いテスト</span>
+<span class="xisabled">・テストは証明ではない</span>
+
+<span class="xisabled">・テストのテクニック</span>
 
 ---
 # テストは面白い
@@ -793,11 +1000,3 @@ def test_semver_valid(semver):
 様々なセオリーが存在する
 勉強するほどうまくなる
 
----
-# テストスメル
-
-
-# CI/CD
-
-
-# スタブ・モック
