@@ -478,6 +478,105 @@ assert isSemVer('1.2.a') == False
 テストのテキストをCLEに提出すること
 正解がある問題ではないので自由に考えること
 
+---
+<!-- _class: enshu-->
+# そもそも正しいsemverとは？
+
+```python
+# Backus–Naur Form Grammar for Valid SemVer Versions
+<valid semver> ::= <version core>
+          | <version core> "-" <pre-release>
+          | <version core> "+" <build>
+          | <version core> "-" <pre-release> "+" <build>
+
+<version core> ::= <major> "." <minor> "." <patch>
+
+<major> ::= <numeric identifier>
+<minor> ::= <numeric identifier>
+<patch> ::= <numeric identifier>
+
+<numeric identifier> ::= "0"
+          | <positive digit>
+          | <positive digit> <digits>
+<positive digit> ::= "1" | "2" | "3" | .. | "9"
+<digit> ::= "0" | <positive digit>
+```
+<subb>https://semver.org/</subb>
+
+---
+<!-- _class: enshu-->
+## 解答例
+valid
+```
+1.2.3
+1.2.99
+1.2.0
+0.0.0
+10.20.30
+99999999999999999.99999999999999999.99999999999999999
+```
+
+invalid
+```
+1
+1.2
+1.2.
+1.2.3.
+1..3
+aaa
+1.01.1
+1. 2.3
+1.-2.3
+```
+
+---
+<!-- _class: enshu-->
+## もっと真面目なテストケース
+valid
+```
+1.1.2-prerelease+meta
+1.0.0-alpha
+1.0.0-beta
+1.0.0-alpha.beta
+1.0.0-alpha.beta.1
+1.0.0-alpha.1
+1.0.0-alpha0.valid
+1.0.0-alpha.0valid
+1.0.0-alpha-a.b-c-somethinglong+build.1-aef.1-its-okay
+1.0.0-rc.1+build.1
+2.0.0-rc.1+build.123
+1.2.3-beta
+10.2.3-DEV-SNAPSHOT
+1.2.3-SNAPSHOT-123
+2.0.0+build.1848
+2.0.1-alpha.1227
+```
+<subb>https://github.com/semver/semver/issues/833#issuecomment-1186845563</subb>
+
+---
+<!-- _class: enshu-->
+# テスト ≒ 仕様
+## 仕様が決まらないとテストは作れない
+```
+仕様 + IF ⇒ 実装
+仕様 + IF ⇒ テスト
+```
+
+IF = `isSemVer(s: str) -> bool:`　仕様 = `BNF`
+
+## テストは<u>自動検証可能な</u>仕様である
+コード化された仕様
+
+## テストがあると実装が楽 <sub>(テストがゴールになる)</sub>
+```
+実装前の状態: -----------------------    0%
+まず軽く実装: oooooooo------oo-------   50%
+少し修正する: oooooooooooooooooooo-oo   98%
+完成！！！！: ooooooooooooooooooooooo  100%
+```
+
+<subb>https://kusumotolab.github.io/lecture-sw-design/src/test_semver.py</subb>
+
 
 ---
 <!-- _class: outline-->
