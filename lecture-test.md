@@ -100,18 +100,18 @@ title: SW設計論 #15
 基本はSWを叩いてみて確認する <sub>(⇔ レビュー, 前回演習)</sub>
 
 テストの一例：`sort(arr)` の単体テスト
-```java
-@Test void testSort1() {
-  actual = sort([1,2,3]);     // プログラムを叩いてみて
-  assert(actual).is([1,2,3]); // その結果を確認する
-}
-@Test void testSort2() {
-  actual = sort([2,3,1]);
-  assert(actual).is([1,2,3]);
-}
-@Test void testSortNull() {
-  actual = sort(null);        // nullはどうなるか？
-  assert(actual).is(null);
+```py
+def test_sort1():
+  actual = sort([2,3,1])    # プログラムを叩いてみて
+  assert actual == [1,2,3]  # その結果を確認する
+
+def test_sort2():
+  actual = sort([1,2,3])
+  assert actual == [1,2,3]
+
+def test_sort3():
+  actual = sort(None)       # Noneはどうなるか？
+  assert actual == None
 ```
 
 ---
@@ -133,21 +133,21 @@ title: SW設計論 #15
 # テスト作成の流れ
 
 インタフェースを決める
-```java
-List sort(List);
+```py
+def sort(arr: List) -> List
 ```
 
 実装する
-```java
-List sort(List l) {
-  for (..
+```py
+def sort(arr: List) -> List {
+  for ...
 ```
 
 テストを作る
-```java
-@Test void testSort1() {
-  assert(sort([1,2,3])).is([1,2,3]);
-}
+```py
+def test_sort1():
+  actual = sort([2,3,1]) 
+  assert actual == [1,2,3] 
 ```
 
 仕様とIFが決まればテストは作成できる
@@ -186,8 +186,8 @@ def test_analyze():
 ## よくあるテスト <sub>(半自動テスト)</sub>
 ```python
 if __name__ == '__main__':
+  print(sort([2,3,1]));
   print(sort([1,2,3]));
-  print(sort([3,2,1]));
   print(sort([3,2,1,1,1,1,1,1,0]));
 ```
 
@@ -210,8 +210,8 @@ if __name__ == '__main__':
 
 ```py
 if __name__ == '__main__':
-  # print(sort([1,2,3]));
-  if sort([1,2,3]) == [1,2,3]: # 検証も自動化
+  # print(sort([2,3,1]));
+  if sort([2,3,1]) == [1,2,3]: # 検証も自動化
     print("ok")
   else:
     print("ng")
@@ -231,9 +231,9 @@ if __name__ == '__main__':
 ## Java：*JUnit, TestNG
 
 ```java
-@Test @DisplayName("ソート済みデータのソート")
+@Test @DisplayName("非整列データのソート")
 void testSort1() {
-  List actual = sort([1,2,3]);
+  List actual = sort([2,3,1]);
   assertThat(actual).equalTo([1,2,3]);
 }
 ```
@@ -241,7 +241,7 @@ void testSort1() {
 ## Python：*pytest, unittest
 ```py
 def test_sort1():
-  assert sort([1,2,3]) == [1,2,3]
+  assert sort([2,3,1]) == [1,2,3]
 ```
 
 ```
@@ -513,9 +513,9 @@ assert isSemVer('1.2.a') == False
 ## 1の終了の時点
 ```py
 def test_sort1():
-  assert sort([1,2,3]) == [1,2,3]
+  assert sort([2,3,1]) == [1,2,3]
 def test_sort2():
-  assert sort([3,2,1]) == [1,2,3]
+  assert sort([1,2,3]) == [1,2,3]
 def test_sort3(): ...
 ```
 
