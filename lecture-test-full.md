@@ -134,12 +134,12 @@ def test_sort3():
 
 インタフェースを決める
 ```py
-def sort(arr: List) -> List
+def sort(arr: list[int]) -> list[int]
 ```
 
 実装する
 ```py
-def sort(arr: List) -> List {
+def sort(arr: list[int]) -> list[int] {
   for ...
 ```
 
